@@ -15,9 +15,33 @@ app.factory('StoreFCT', function ($http) {
         });
     };
 
+    var addToCart = function ($localStorage, cartData, cake) {
+        // we will need a condition here to handle authenticated users
+
+        if ($localStorage.cart) {
+            cartData = $localStorage.cart;
+        }
+
+        cartData.push(cake);
+
+        $localStorage.cart = cartData;
+    };
+
+    var removeFromCart = function ($localStorage, cartData, cake) {
+        if (!$localStorage.cart) return;
+
+        for (var i = 0; i < $localStorage.cart.length; i++) {
+            if ($localStorage.cart[i]._id === cake._id) {
+                $localStorage.cart.splice(i, 1)
+            }
+        }
+    }
+
     return {
         getAll: getAll,
-        getOne: getOne
+        getOne: getOne,
+        addToCart: addToCart,
+        removeFromCart: removeFromCart
     };
 
 });

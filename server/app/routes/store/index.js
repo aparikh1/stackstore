@@ -40,43 +40,13 @@ router.get('/:id', function (req, res, next) {
 
 
 router.get('/', function (req, res, next) {
-    CakeModel.find().exec()
-        .then(function (err, cakesArr) {
+    CakeModel.find()
+        .populate('shape','type description')
+        .populate('icing','name description price')
+        .populate('filling','name description price')
+        .populate('reviews').exec(function (err, cakesArr){
             if(err) next(err);
-            var cakelll = [{
-        name: 'Barry White',
-        type: 'stock',
-        price: 135,
-        shape: 'Round',
-        icing: 'Vanilla',
-        layers: 3
-    },
-    {
-        name: 'Cool Breeze',
-        type: 'stock',
-        price: 145,
-        shape: 'Round',
-        icing: 'Mint',
-        layers: 1
-    },
-    {
-        name: 'Flat Top',
-        type: 'stock',
-        price: 55,
-        shape: 'Square',
-        icing: 'Vanilla',
-        layers: 1
-    },
-    {
-        name: 'Chocolate Monstar',
-        type: 'custom',
-        price: 135,
-        shape: 'Square',
-        icing: 'Chocolate',
-        layers: 3
-    }];
-            console.log('CAKES ARR', cakelll);
             console.log('CAKES ARR', cakesArr);
-            res.send(cakelll);
+            res.send(cakesArr);
         });
 });

@@ -7,7 +7,11 @@ var schema = new mongoose.Schema({
 	},
     summary: String,
     description: String,
-    stars: Number
+    stars: {
+    	type:Number,
+    	min: 1,
+    	max: 5
+    }
 });
 
 module.exports = mongoose.model('Review', schema);

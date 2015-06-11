@@ -1,0 +1,11 @@
+<button ui-sref="adminHome">Back to Admin Home</button>
+<h1>Admin User List</h1>
+
+
+<div ng-repeat="user in userList">
+	<h1>{{user.email}} </h1>
+	<button ng-show="theUser._id !== user._id" ng-click="removeAdminStatus(user._id)">Remove Admin Status</button>
+</div>
+
+
+<button ng-click="searchNonAdminUser()">Search User</button>

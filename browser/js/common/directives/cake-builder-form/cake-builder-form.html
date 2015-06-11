@@ -1,0 +1,131 @@
+
+<div id="theCakeForm">
+    <h1> Build a Cake Form</h1>
+    <!-- <h1>{{ shapes }}</h1> -->
+    <div id="yourCake">
+        
+        <img id="cakeImg" src="http://cakeexpress.co.in/images/CAKE-BIRTHDAY21.png">
+        <p>(We hope you're the type of person who enjoyed alphabet soup.)</p>
+
+        <p><b>Number of Layers</b><p>
+        {{cake.selectedNumLayers}}
+        <br>
+        <br>
+        <p><b>Cake Shape</b></p>
+        {{cake.shape.type}}
+        <br>
+        <br>
+        <p><b>Cake Icing</b></p>
+        {{cake.icing.name}}
+        <br>
+        <br>
+        <p><b>Layer 1 Filling (if at all)</b></p>
+        {{cake['layers'][0]['filling']['name']}}
+        <br>
+        <br>
+        <p><b>Layer 2 Filling (if at all)</b></p>
+        {{cake['layers'][1]['filling']['name']}}
+        <br>
+        <br>
+        <p><b>Layer 3 Filling (if at all)</b></p>
+        {{cake['layers'][2]['filling']['name']}}
+        <br>
+        <br>
+
+
+
+    </div>
+        
+
+    <span>How Many Layers on your Cake?</span>
+    <select ng-model="numLayerSelected" ng-change="update(selectedNumLayers, numLayerSelected)" data-ng-options="num as num for num in numLayers">
+        <option value="">Select Number of Layers</option>
+    </select>
+
+    <br>
+    <br>
+
+
+    <form name="buildCakeForm" ng-submit="editCardForm.$valid && submitEditCard()">
+        
+
+
+
+        <br>
+        <span>Shape</span>
+        <error-message ng-show="editCardForm.category.$touched && editCardForm.category.$error.required">
+            You need to select a category.
+        </error-message>
+        <select ng-model="shapeSelected" ng-change="update(shape, shapeSelected)" data-ng-options="shape as shape.type for shape in shapes">
+            <option value="">Select Shape</option>
+        </select>
+        
+        <br>
+        <br>
+
+        <span>Icing</span>
+        <select ng-model="icingSelected" ng-change="update(icing, icingSelected)" data-ng-options="icing as icing.name for icing in icings">
+            <option value="">Select Shape</option>
+        </select>
+
+        <div id="layerOne">
+            <br>
+            <br>
+            <span>Layer One Filling</span>
+
+            <select ng-model="cake.layers[0].filling" ng-change="update(filling, numLayerSelected)" data-ng-options="filling as filling.name for filling in fillings">
+                <option value="">Select Filling</option>
+            </select>
+
+
+
+        </div>
+        <div id="layerTwo" style="display: none">
+            <br>
+            <br>
+            <span>Layer Two Filling</span>
+
+            <select ng-model="cake.layers[1].filling" ng-change="update(filling, numLayerSelected)" data-ng-options="filling as filling.name for filling in fillings">
+                <option value="">Select Filling</option>
+            </select>
+        </div>
+        <div id="layerThree" style="display: none">
+            <br>
+            <br>
+            <span>Layer Three Filling</span>
+
+            <select ng-model="cake.layers[2].filling" ng-change="update(filling, numLayerSelected)" data-ng-options="filling as filling.name for filling in fillings">
+                <option value="">Select Filling</option>
+            </select>
+        </div>
+    <!--                 <span>Question</span>
+        <error-message ng-show="editCardForm.question.$touched && editCardForm.question.$error.required">
+            Question is a required field.
+        </error-message>
+        <error-message ng-show="editCardForm.question.$error.minlength">
+            Your question needs to be atleast 15 characters long.
+        </error-message>
+        <input ng-model="editedCard.question" type="text" ng-minlength="15" required name="question"><br>
+        <span>Answer</span>
+        <error-message ng-show="editCardForm.Answer1.$error.maxlength">
+            Your answer is too long.
+        </error-message>
+        <input ng-model="editedCard.answers[0].text" required type="text" ng-maxlength="40" name="Answer1"><br>
+        <input ng-model="editedCard.answers[0].correct" type="checkbox" value="Check">This the correct answer<br>
+        <span>Answer</span>
+        <error-message ng-show="editCardForm.Answer2.$error.maxlength">
+            Your answer is too long.
+        </error-message>
+        <input ng-model="editedCard.answers[1].text"  required ng-maxlength="40" type="text" name="Answer2"><br>
+        <input ng-model="editedCard.answers[1].correct" type="checkbox" value="Check">This the correct answer<br>
+        <span>Answer</span>
+        <error-message ng-show="editCardForm.Answer3.$error.maxlength">
+            Your answer is too long.
+        </error-message>
+        <input ng-model="editedCard.answers[2].text"  required ng-maxlength="40" type="text" name="Answer3"><br>
+        <input ng-model="editedCard.answers[2].correct" type="checkbox" value="Check">This the correct answer<br> -->
+        <br>
+        <br>
+        <button type="submit" >Build Cake!</button>
+    </form>
+</div>

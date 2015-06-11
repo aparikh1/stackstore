@@ -1,10 +1,14 @@
 <h1>STORE</h1>
 
 
-<div ng-repeat="cake in products" class="storeItem">
-    <h5>Shape: {{ cake.shape }}</h5>
-    <h5>Icing: {{ cake.icing }}</h5>
-    <h5>Layers: {{ cake.layers }}</h5>
+<div ng-repeat="cake in products track by $index" class="storeItem">
+    <h5>Shape: {{ cake.shape.name }}</h5>
+    <h5>Icing: {{ cake.icing.name }}</h5>
+    <h5>Layers: {{ cake.layerNum }}</h5>
     <h5>Price: {{ cake.price }}</h5>
-    <h5>Icing: {{ cake.icing }}</h5>
+    <h5>Filling: {{ cake.filling.name }}</h5>
+    <h5>Reviews: {{ cake.reviewNum }}</h5>
+    <button>View Product</button>
+    <button ng-click="addToCart(cake)">Add to cart</button>
+    <button ng-click="removeFromCart(cake)">Remove from cart</button>
 </div>

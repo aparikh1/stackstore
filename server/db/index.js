@@ -16,9 +16,9 @@ require('./models/cart');
 require('./models/filling');
 require('./models/cake');
 require('./models/icing');
-require('./models/layer');
 require('./models/review');
 require('./models/shape');
+require('./models/order');
 
 var startDbPromise = new Q(function (resolve, reject) {
     db.on('open', resolve);

@@ -1,6 +1,8 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var textSearch = require('mongoose-text-search');
+
 
 var schema = new mongoose.Schema({
     email: {
@@ -29,6 +31,8 @@ var schema = new mongoose.Schema({
         default: false
     }
 });
+
+schema.plugin(textSearch);
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.

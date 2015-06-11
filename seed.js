@@ -63,13 +63,13 @@ var getShapesData = function () {
 
 var seedShapes = function () {
     var shapes = [{
-        type: 'round',
+        name: 'round',
         description: 'round description'
     }, {
-        type: 'square',
+        name: 'square',
         description: 'square description'
     }, {
-        type: 'rectangle',
+        name: 'rectangle',
         description: 'rectangle description'
     }];
 

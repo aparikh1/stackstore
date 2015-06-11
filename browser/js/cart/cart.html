@@ -1,0 +1,13 @@
+<h1>LOCAL CART</h1>
+
+<pre>{{ localCart | json : 4 }}</pre>
+
+<div ng-repeat="cart in localCart.cart">
+
+Name: {{ cart.name }} </br>
+Type: {{ cart.type }} </br>
+Shape: {{ cart.shape }} </br>
+Icing: {{ cart.icing }} </br>
+Price: {{ cart.price }} </br>
+
+</div>

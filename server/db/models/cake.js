@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate');
 
 var schema = new mongoose.Schema({
 	name: String,
@@ -10,7 +11,7 @@ var schema = new mongoose.Schema({
 	image: {
 		type: String,
 		default: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97150&w=200&h=150'
-	}
+	},
 	price: {
 		default: 50,
 		type: Number
@@ -24,13 +25,25 @@ var schema = new mongoose.Schema({
 		ref: 'Icing'
 	},
 	layers: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Layer'
+		position: Number,
+		filling: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Filling'
+		}
 	}],
 	reviews: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Review'
-	}]
+	}],
+	description: String
+});
+
+schema.plugin(deepPopulate, {
+	populate: {
+	    'layers.filling': {
+	      select: 'name'
+	    }
+	}
 });
 
 module.exports = mongoose.model('Cake', schema);
