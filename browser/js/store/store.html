@@ -5,6 +5,15 @@
     <p>{{store.description }}</p>
     <h5>Reviews: {{ store.reviewNum }}</h5>
     <button ui-sref="storeViewProducts({storeId: store._id})">View Products</button>
+    <md-button class="md-raised">Button</md-button>
+
+
+  <md-content md-theme="docs-dark" layout-padding layout="row" layout-sm="column">
+    <md-input-container>
+      <label>Title</label>
+      <input ng-model="user.title">
+    </md-input-container>
+</md-content>
 </div>
 
 <!-- <div ng-repeat="cake in products track by $index" class="storeItem">

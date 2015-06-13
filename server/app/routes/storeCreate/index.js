@@ -18,7 +18,7 @@ router.post('/store', function (req, res, next) {
     store.owner = req.user._id;
     //ADD MORE FOR ALL OTHER DATA POINTS
     store.save(function (err, store) {
-    	UserModel.findByIdAndUpdate(req.user._id, {$set: {storeId: store._id}})
+    	UserModel.findByIdAndUpdate(req.user._id, {$set: {storeId: store._id, admin: true}})
     		.exec().then(function (user) {
 
 	    	createDefaults(store._id).then(function (data){
