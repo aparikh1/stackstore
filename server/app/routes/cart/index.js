@@ -39,17 +39,11 @@ router.put('/update', function (req, res, next) {
     var user = req.body.user._id;
     var cart = {};
 
-    console.log("cake being added to database (should have mongo id)",req.body.cart)
-
     Cart.findOne({ user : user }).exec().then(function (userCart) {
 
+        if (_.isArray(req.body.cakes)) {
 
-    	console.log('userCart', userCart);
-
-
-        if (_.isArray(req.body.cart)) {
-
-            cart = req.body.cart.map(function (cake) {
+            cart = req.body.cakes.map(function (cake) {
                 return cake._id;
             });
 
@@ -59,12 +53,8 @@ router.put('/update', function (req, res, next) {
 
 
         } else {
-            // *** does not pull the id.  must be data._id ***
-                // userCart.cakes.addToSet(req.body.cart._id);
-
             
-            userCart.cakes.addToSet(req.body.cart.data._id);
-
+            userCart.cakes.addToSet(req.body.cakes._id);
 
         }
 
@@ -79,7 +69,6 @@ router.put('/update', function (req, res, next) {
 router.delete('/:id', function (req, res, next) {
 
     var cake = req.params.id;
-    console.log('CAKE ID', cake);
 
     Cart.findOne({ user : req.user._id }).exec().then(function (userCart) {
         

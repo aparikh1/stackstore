@@ -18,8 +18,8 @@ app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthServ
                 
                 return ingredients
             });
-        }
-        ,
+        },
+        
         storeCake: function (cakeObj){
 
             delete $localStorage.cake

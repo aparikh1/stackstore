@@ -33,7 +33,6 @@ app.controller('StoreSingleCtrl', function ($scope, AuthService, $state, StoreSi
  
     $scope.addToCart = StoreSingleFCT.addToCart
 
-
     $scope.removeFromCart = StoreSingleFCT.removeFromCart
 
     $scope.currentStore = $localStorage.currentStore
