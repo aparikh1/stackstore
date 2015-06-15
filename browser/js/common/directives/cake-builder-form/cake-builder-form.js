@@ -6,7 +6,7 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
         templateUrl: 'js/common/directives/cake-builder-form/cake-builder-form.html',
         link: function (scope) {
 
-                console.log("current store (should not be undefined)", $rootScope.currentStore )
+                console.log("current store (should not be undefined)", $localStorage.currentStore )
 
                 CakeFactory.getAllIngredients($stateParams.storeId).then(function(ingredients){
 
@@ -127,21 +127,29 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                                 if(scope.cake.layers[2].filling !== null){
                                     scope.cake.layers[2].filling = null;
                                 }
-                                angular.element(layerTwo).css("display","none")
-                                angular.element(layerThree).css("display","none")
+                                //show layers if applicable
+                                $localStorage.currentPrices.layerTwo = false
+                                $localStorage.currentPrices.layerThree= false
+                                // angular.element(layerTwo).css("display","none")
+                                // angular.element(layerThree).css("display","none")
+
                             }
 
                             if(propObj=== 2) {
                                 if(scope.cake.layers[2].filling !== null){
                                     scope.cake.layers[2].filling = null;
                                 }
-                                angular.element(layerTwo).css("display","block")
-                                angular.element(layerThree).css("display","none")
+                                $localStorage.currentPrices.layerTwo = true
+                                $localStorage.currentPrices.layerThree= false
+                                // angular.element(layerTwo).css("display","block")
+                                // angular.element(layerThree).css("display","none")
                                 
                             }
                             if(propObj=== 3) {
-                                angular.element(layerTwo).css("display","block")
-                                angular.element(layerThree).css("display","block")
+                                $localStorage.currentPrices.layerTwo = true
+                                $localStorage.currentPrices.layerThree= true
+                                // angular.element(layerTwo).css("display","block")
+                                // angular.element(layerThree).css("display","block")
          
                             }
                         }
@@ -170,19 +178,29 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                         //regenerate prices when we change the cake
                         scope.updatePrice = function(){
                            
+                            scope.layerTwo = $localStorage.currentPrices.layerTwo
+                            scope.layerThree = $localStorage.currentPrices.layerThree
+
                             scope.cake.price = 0;
 
                             if(scope.currentPrices.icing){
                                 scope.cake.price += scope.currentPrices.icing.price;
                             }
+                            
                             if(scope.currentPrices.layers[0].filling !== null){
                                 scope.cake.price += scope.currentPrices.layers[0].filling.price
                             }
-                            if(scope.currentPrices.layers[1].filling !== null){
-                                scope.cake.price += scope.currentPrices.layers[1].filling.price
+                            
+                            //if there are second and third layers, add their price
+                            if($localStorage.currentPrices.layerTwo){
+                                if(scope.currentPrices.layers[1].filling !== null){
+                                    scope.cake.price += scope.currentPrices.layers[1].filling.price
+                                }
                             }
-                            if(scope.currentPrices.layers[2].filling !== null){
-                                scope.cake.price += scope.currentPrices.layers[2].filling.price
+                            if($localStorage.currentPrices.layerThree){
+                                if(scope.currentPrices.layers[2].filling !== null){
+                                    scope.cake.price += scope.currentPrices.layers[2].filling.price
+                                }
                             }
                             if(scope.currentPrices.numOrdered){
                                 scope.cake.price *= parseInt(scope.currentPrices.numOrdered)
@@ -213,7 +231,10 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                     //persist cake in progress from local storage
                     scope.loadCakeFromLocal = function (){
                         scope.cake = $localStorage.cake;
-                        scope.currentPrices = $localStorage.currentPrices    
+                        scope.currentPrices = $localStorage.currentPrices   
+                        //persist layer selection from local storage
+                        scope.layerTwo = $localStorage.currentPrices.layerTwo
+                        scope.layerThree = $localStorage.currentPrices.layerThree 
 
                     }
                     scope.loadCakeFromLocal();
