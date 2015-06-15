@@ -1,3 +1,4 @@
+<br>
 <span>How many would you like to order?</span>
 <error-message ng-show="cake.numOrdered.$touched && cake.numOrdered.$error.required">
     Cake numOrdered is a required field.
@@ -7,9 +8,9 @@
 </error-message>
 <input ng-model="cake.numOrdered" ng-change="update('numOrdered')" type="text" ng-minlength="1" required name="cakenumOrdered"><br>
 <br>
-<br>
+
 <p><b>Cake Price</b></p>
 <p>${{cake.price}}</p>
-<br>
-<br>
+
+
 <button type="submit" >Build Cake!</button>

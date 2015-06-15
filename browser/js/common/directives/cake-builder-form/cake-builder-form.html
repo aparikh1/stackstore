@@ -1,79 +1,78 @@
 
-<div id="theCakeForm" class="text-center">
-    <h1> Build a Cake Form</h1>
-    <!-- <h1>{{ shapes }}</h1> -->
-    <div id="yourCake">
-        
-        <img id="cakeImg" src="http://cakeexpress.co.in/images/CAKE-BIRTHDAY21.png">
-        <p>(We hope you're the type of person who enjoyed alphabet soup.)</p>
-        <br>
-        <br>
-
-        <p><b>Cake Name</b><p>
-        {{cake.name}}
-        <br>
-        <br>
-
-        <p><b>Number of Layers</b><p>
-        {{cake.selectedNumLayers}}
-        <br>
-        <br>
-        <p><b>Cake Shape</b></p>
-        {{currentPrices.shape.name}}
-        <br>
-        <br>
-        <p><b>Cake Icing</b></p>
-        {{currentPrices.icing.name}}
-        <br>
-        <br>
-        <p><b>Layer 1 Filling (if at all)</b></p>
-        {{currentPrices['layers'][0]['filling'].name}}
-        <br>
-        <br>
-        <p><b>Layer 2 Filling (if at all)</b></p>
-        {{currentPrices['layers'][1]['filling'].name}}
-        <br>
-        <br>
-        <p><b>Layer 3 Filling (if at all)</b></p>
-        {{currentPrices['layers'][2]['filling'].name}}
-        <br>
-        <br>
-        <p><b>Cake Order Quantity</b></p>
-        <p>{{cake.numOrdered}}</p>
-        <br>
-        <br>
-        <p><b>Cake Price</b></p>
-        <p>${{cake.price}}</p>
-        <br>
-        <br>
+<div class="row">
+<div class="col-sm-8 col-sm-offset-2">
 
 
+    <div id="form-container" class="text-center">
+        <div class="page-header text-center">    
+            <h1> Build a Cake Form</h1>
+            <!-- <h1>{{ shapes }}</h1> -->
+            <div id="yourCake">
+                
+                <img id="cakeImg" src="http://cakeexpress.co.in/images/CAKE-BIRTHDAY21.png">
+                <p>(We hope you're the type of person who enjoyed alphabet soup.)</p>
+                <br>
+                <br>
 
-    </div>
-    <form id="cake-builder-wizard" name="buildCakeForm" ng-submit="storeCake(cake)">
-        
-        
+                <p><b>Cake Name</b><p>
+                {{cake.name}}
+                <br>
+                <br>
+
+                <p><b>Number of Layers</b><p>
+                {{cake.selectedNumLayers}}
+                <br>
+                <br>
+                <p><b>Cake Shape</b></p>
+                {{currentPrices.shape.name}}
+                <br>
+                <br>
+                <p><b>Cake Icing</b></p>
+                {{currentPrices.icing.name}}
+                <br>
+                <br>
+                <p><b>Layer 1 Filling (if at all)</b></p>
+                {{currentPrices['layers'][0]['filling'].name}}
+                <br>
+                <br>
+                <p><b>Layer 2 Filling (if at all)</b></p>
+                {{currentPrices['layers'][1]['filling'].name}}
+                <br>
+                <br>
+                <p><b>Layer 3 Filling (if at all)</b></p>
+                {{currentPrices['layers'][2]['filling'].name}}
+                <br>
+                <br>
+                <p><b>Cake Order Quantity</b></p>
+                <p>{{cake.numOrdered}}</p>
+                <br>
+                <br>
+                <p><b>Cake Price</b></p>
+                <p>${{cake.price}}</p>
+                <br>
+                <br>
 
 
 
-        <!-- check that cake.$valid is true && execute functions on submit above -->
-        
+            </div>
+            <form id="cake-builder-wizard" name="buildCakeForm" ng-submit="storeCake(cake)">
 
-        <ui-view></ui-view>
- 
+                <!-- check that cake.$valid is true && execute functions on submit above -->
+                
 
-
-        
+                <div id="form-views" ui-view></ui-view>
     
-
-    </form>
-    <div id="cake-builder-wizard-buttons" class="text-center">
-        <a ui-sref-active="active" ui-sref="cake-builder.first"><span>1</span> Name & Pretty Things</a>
-        <a ui-sref-active="active" ui-sref="cake-builder.second"><span>2</span> It's What's Inside</a>
-        <a ui-sref-active="active" ui-sref="cake-builder.third"><span>3</span> Make It Mine</a>
+            </form>
+        </div>
     </div>
+    <p>_____________________________________________________</p>
+            <div id="status-buttons" class="text-center">
+                <a ui-sref-active="active" ui-sref="cake-builder.first"><span>1</span> Pretty Things</a>
+                <a ui-sref-active="active" ui-sref="cake-builder.second"><span>2</span> It's What's Inside</a>
+                <a ui-sref-active="active" ui-sref="cake-builder.third"><span>3</span> Make It Mine</a>
+            </div>
 </div>
-
+</div>
 
         <!-- <button ng-click="deleteCake(cake.name)">Delete Cake</button> -->
 

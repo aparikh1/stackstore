@@ -127,9 +127,9 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                                 if(scope.cake.layers[2].filling !== null){
                                     scope.cake.layers[2].filling = null;
                                 }
-                                
-                                scope.layerTwo = false
-                                scope.layerThree= false
+                                //show layers if applicable
+                                $localStorage.currentPrices.layerTwo = false
+                                $localStorage.currentPrices.layerThree= false
                                 // angular.element(layerTwo).css("display","none")
                                 // angular.element(layerThree).css("display","none")
 
@@ -139,15 +139,15 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                                 if(scope.cake.layers[2].filling !== null){
                                     scope.cake.layers[2].filling = null;
                                 }
-                                scope.layerTwo = true
-                                scope.layerThree= false
+                                $localStorage.currentPrices.layerTwo = true
+                                $localStorage.currentPrices.layerThree= false
                                 // angular.element(layerTwo).css("display","block")
                                 // angular.element(layerThree).css("display","none")
                                 
                             }
                             if(propObj=== 3) {
-                                scope.layerTwo = true
-                                scope.layerThree= true
+                                $localStorage.currentPrices.layerTwo = true
+                                $localStorage.currentPrices.layerThree= true
                                 // angular.element(layerTwo).css("display","block")
                                 // angular.element(layerThree).css("display","block")
          
@@ -178,6 +178,9 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                         //regenerate prices when we change the cake
                         scope.updatePrice = function(){
                            
+                            scope.layerTwo = $localStorage.currentPrices.layerTwo
+                            scope.layerThree = $localStorage.currentPrices.layerThree
+
                             scope.cake.price = 0;
 
                             if(scope.currentPrices.icing){
@@ -188,12 +191,13 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                                 scope.cake.price += scope.currentPrices.layers[0].filling.price
                             }
                             
-                            if(scope.layerTwo){
+                            //if there are second and third layers, add their price
+                            if($localStorage.currentPrices.layerTwo){
                                 if(scope.currentPrices.layers[1].filling !== null){
                                     scope.cake.price += scope.currentPrices.layers[1].filling.price
                                 }
                             }
-                            if(scope.layerThree){
+                            if($localStorage.currentPrices.layerThree){
                                 if(scope.currentPrices.layers[2].filling !== null){
                                     scope.cake.price += scope.currentPrices.layers[2].filling.price
                                 }
@@ -227,7 +231,10 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                     //persist cake in progress from local storage
                     scope.loadCakeFromLocal = function (){
                         scope.cake = $localStorage.cake;
-                        scope.currentPrices = $localStorage.currentPrices    
+                        scope.currentPrices = $localStorage.currentPrices   
+                        //persist layer selection from local storage
+                        scope.layerTwo = $localStorage.currentPrices.layerTwo
+                        scope.layerThree = $localStorage.currentPrices.layerThree 
 
                     }
                     scope.loadCakeFromLocal();
