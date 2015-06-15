@@ -14,7 +14,7 @@ app.factory('StoreFCT', function ($http) {
             return data;
         });
     };
-
+    
     var addToAuthCart = function (user, cake, CartFactory) {
         
         CartFactory.updateCart(cake, user);
@@ -69,8 +69,6 @@ app.factory('StoreFCT', function ($http) {
         removeFromAuthCart: removeFromAuthCart,
         removeFromUnauthCart: removeFromUnauthCart,
         createNewStore: createNewStore,
-
-
         getAllStores: getAllStores
     };
 

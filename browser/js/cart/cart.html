@@ -1,14 +1,19 @@
-<h1>LOCAL CART</h1>
+<h1>CART</h1>
 
-<div ng-repeat="cart in carts">
-	Name: {{ cart.name }} </br>
-	Type: {{ cart.type }} </br>
-	Shape: {{ cart.shape }} </br>
-	Icing: {{ cart.icing }} </br>
-	Price: {{ cart.price }} </br>
+<div ng-repeat="c in cart">
+	Name: {{ c.name }} </br>
+	Type: {{ c.type }} </br>
+	Shape: {{ c.shape }} </br>
+	Icing: {{ c.icing }} </br>
+	Price: {{ c.price }} </br><br/>
 </div>
 
+
+
+TOTAL: {{ price }}
+
 <button ng-click="">Edit Cart</button>
+<button ng-click="checkout(cart)">Checkout</button>
 
 
 <pre>{{ localCart | json : 4 }}</pre>

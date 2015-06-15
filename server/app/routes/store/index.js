@@ -24,7 +24,11 @@ router.get('/create', function (req, res, next) {
 
 router.get('/:storeId', function (req, res, next) {
     StoreModel.findById(req.params.storeId).exec().then(function (store) {
-        res.send(store);
+        return store;
+    }).then(function (store) {
+    	CakeModel.find({ storeId: store._id }).exec().then(function (cakes) {
+    		res.send(cakes);
+    	});
     });
     // var id = req.params.storeId;
     // CakeModel.find({id: id})

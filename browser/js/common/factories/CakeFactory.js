@@ -1,6 +1,15 @@
 app.factory('CakeFactory', function ($http, $localStorage, CartFactory) {
 
     return {
+    	getCakes: function (cakeid) {
+    		if (cakeid) {
+    			return $http.get('/api/cake/' + cakeid).then(function(response){
+	            	console.log('response.data', response.data);
+	                return response.data;
+	            });
+    		}
+            
+        },
         getAllIngredients: function () {
             return $http.get('/api/cake_builder').then(function(ingredients){
                 // console.log("get ingredients hit from front end")

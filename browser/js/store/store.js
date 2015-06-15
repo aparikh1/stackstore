@@ -16,9 +16,10 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('StoreSingleCtrl', function ($scope, $state, StoreFCT, $stateParams, $localStorage) {
+app.controller('StoreSingleCtrl', function ($scope, AuthService, $state, StoreFCT, $stateParams, $localStorage, CartFactory) {
 
     StoreFCT.getAll($stateParams.storeId).then(function (data) {
+    	console.log('data', data);
         $scope.products = data.data;
         // $scope.products = data.data.map(function (obj) {
         //     obj.layerNum = obj.layers.length;
@@ -27,24 +28,33 @@ app.controller('StoreSingleCtrl', function ($scope, $state, StoreFCT, $statePara
         // });
     });
 
-    // var cartData = [];
-    // StoreFCT.getOne($stateParams.id)
-    //     .then(function (data) {
-    //         console.log('SINGLE CAKE', data);
-    //         $scope.cake = data.data;
-    //     });
-    // $scope.addToCart = function (cake) {
-    //     StoreFCT.addToCart($localStorage, cartData, cake);
-    // }
-    // $scope.removeFromCart = function (cake) {
-    //     StoreFCT.removeFromCart($localStorage, cartData, cake);
-    // }
+
+    var cartData = [];
+    $scope.addToCart = function (cake) {
+        if (AuthService.isAuthenticated()) {
+            AuthService.getLoggedInUser().then(function (user) {
+                StoreFCT.addToAuthCart(user, cake, CartFactory);
+            });
+        } else {
+            StoreFCT.addToUnauthCart($localStorage, cartData, cake);
+        }
+    }
+
+    $scope.removeFromCart = function (cake) {
+        if (AuthService.isAuthenticated()) {
+            AuthService.getLoggedInUser().then(function (user) {
+                StoreFCT.removeFromAuthCart(user, cake, CartFactory);
+            });
+        } else {
+            StoreFCT.removeFromUnauthCart($localStorage, cartData, cake);
+        }
+    }
 
 });
 
 app.controller('StoreCtrl', function ($scope, AuthService, $state, StoreFCT, $localStorage, CartFactory) {
 
-    // var cartData = [];
+
     StoreFCT.getAllStores().then(function (data) {
         console.log('DATA', data.data);
         $scope.storeArray = data.data;

@@ -10,7 +10,7 @@ var Cart = mongoose.model('Cart');
 
 router.get('/:id', function (req, res, next) {
 
-    Cart.find({ user : req.params.id }, function (err, cart) {
+    Cart.findOne({ user : req.params.id }, function (err, cart) {
         if(err) next(err);
         res.send(cart);
     });
@@ -37,9 +37,11 @@ router.post('/add', function (req, res, next) {
 router.put('/update', function (req, res, next) {
 
     var user = req.body.user._id;
-    var cart;
+    var cart = {};
 
     Cart.findOne({ user : user }).exec().then(function (userCart) {
+
+    	console.log('userCart', userCart);
 
         if (_.isArray(req.body.cart)) {
 
@@ -51,8 +53,8 @@ router.put('/update', function (req, res, next) {
                 userCart.cakes.addToSet(cake);
             });
 
-        } else {
 
+        } else {
             userCart.cakes.addToSet(req.body.cart._id);
 
         }

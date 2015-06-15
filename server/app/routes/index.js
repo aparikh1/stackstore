@@ -10,8 +10,10 @@ router.param('storeId', function (req, res, next) {
 // router.use('/tutorial', require('./tutorial'));
 router.use('/create', require('./storeCreate'));
 router.use('/members', require('./members'));
+router.use('/cake', require('./cake'));
 router.use('/cake_builder', require('./cake_builder'));
 router.use('/cart', require('./cart'));
+router.use('/order', require('./order'));
 router.use('/store/:storeId/admin', require('./admin'));
 router.use('/store', require('./store'));
 
