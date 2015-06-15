@@ -10,6 +10,8 @@ app.factory('StoreSingleFCT', function ($http, $state, $rootScope, AuthService, 
     
 
     var addToCart = function (cake) {
+        if(cake.numOrdered===undefined) cake.numOrdered = 1
+            console.log("should have a numOrdered prop",cake)
         if (AuthService.isAuthenticated()) {
             AuthService.getLoggedInUser().then(function (user) {
                 StoreFCT.addToAuthCart(user, cake, CartFactory);

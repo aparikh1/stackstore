@@ -6,7 +6,7 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
         templateUrl: 'js/common/directives/cake-builder-form/cake-builder-form.html',
         link: function (scope) {
 
-                console.log("current store (should not be undefined)", $rootScope.currentStore )
+                console.log("current store (should not be undefined)", $localStorage.currentStore )
 
                 CakeFactory.getAllIngredients($stateParams.storeId).then(function(ingredients){
 
@@ -127,21 +127,29 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                                 if(scope.cake.layers[2].filling !== null){
                                     scope.cake.layers[2].filling = null;
                                 }
-                                angular.element(layerTwo).css("display","none")
-                                angular.element(layerThree).css("display","none")
+                                
+                                scope.layerTwo = false
+                                scope.layerThree= false
+                                // angular.element(layerTwo).css("display","none")
+                                // angular.element(layerThree).css("display","none")
+
                             }
 
                             if(propObj=== 2) {
                                 if(scope.cake.layers[2].filling !== null){
                                     scope.cake.layers[2].filling = null;
                                 }
-                                angular.element(layerTwo).css("display","block")
-                                angular.element(layerThree).css("display","none")
+                                scope.layerTwo = true
+                                scope.layerThree= false
+                                // angular.element(layerTwo).css("display","block")
+                                // angular.element(layerThree).css("display","none")
                                 
                             }
                             if(propObj=== 3) {
-                                angular.element(layerTwo).css("display","block")
-                                angular.element(layerThree).css("display","block")
+                                scope.layerTwo = true
+                                scope.layerThree= true
+                                // angular.element(layerTwo).css("display","block")
+                                // angular.element(layerThree).css("display","block")
          
                             }
                         }
@@ -175,14 +183,20 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                             if(scope.currentPrices.icing){
                                 scope.cake.price += scope.currentPrices.icing.price;
                             }
+                            
                             if(scope.currentPrices.layers[0].filling !== null){
                                 scope.cake.price += scope.currentPrices.layers[0].filling.price
                             }
-                            if(scope.currentPrices.layers[1].filling !== null){
-                                scope.cake.price += scope.currentPrices.layers[1].filling.price
+                            
+                            if(scope.layerTwo){
+                                if(scope.currentPrices.layers[1].filling !== null){
+                                    scope.cake.price += scope.currentPrices.layers[1].filling.price
+                                }
                             }
-                            if(scope.currentPrices.layers[2].filling !== null){
-                                scope.cake.price += scope.currentPrices.layers[2].filling.price
+                            if(scope.layerThree){
+                                if(scope.currentPrices.layers[2].filling !== null){
+                                    scope.cake.price += scope.currentPrices.layers[2].filling.price
+                                }
                             }
                             if(scope.currentPrices.numOrdered){
                                 scope.cake.price *= parseInt(scope.currentPrices.numOrdered)

@@ -1,5 +1,5 @@
 
-<div id="theCakeForm">
+<div id="theCakeForm" class="text-center">
     <h1> Build a Cake Form</h1>
     <!-- <h1>{{ shapes }}</h1> -->
     <div id="yourCake">
@@ -50,105 +50,31 @@
 
 
     </div>
+    <form id="cake-builder-wizard" name="buildCakeForm" ng-submit="storeCake(cake)">
         
-    <span>Name your creation!</span>
-    <error-message ng-show="cake.name.$touched && cake.name.$error.required">
-        Cake name is a required field.
-    </error-message>
-    <error-message ng-show="cake.name.$error.minlength">
-        Your cake name needs to be atleast 1 character long.
-    </error-message>
-    <input ng-model="cake.name" type="text" ng-minlength="1" required name="cakename"><br>
-
-    <span>How Many Layers on your Cake?</span>
-    <select ng-model="numLayerSelected" ng-change="update(selectedNumLayers, numLayerSelected)" data-ng-options="num as num for num in numLayers">
-        <option value="">Select Number of Layers</option>
-    </select>
-    {{cake.selectedNumLayers}}
-
-    <br>
-    <br>
+        
 
 
-    <form name="buildCakeForm" ng-submit="storeCake(cake)">
 
         <!-- check that cake.$valid is true && execute functions on submit above -->
         
 
-
+        <ui-view></ui-view>
  
-        <br>
-        <span>Shape</span>
-        <error-message ng-show="editCardForm.category.$touched && editCardForm.category.$error.required">
-            You need to select a category.
-        </error-message>
-        <select ng-model="cake.shape" ng-change="update('shape', cake.shape)" data-ng-options="shape as shape.name for shape in shapes">
-            <option value="">Select Shape</option>
-        </select>
-        {{currentPrices.shape.name}}
+
+
         
-        <br>
-        <br>
-
-        <span>Icing</span>
-        <select ng-model="cake.icing" ng-change="update('icing', cake.icing)" data-ng-options="icing as icing.name for icing in icings">
-            <option value="">Select Shape</option>
-        </select>
-        {{currentPrices.icing.name}}
-
-        <div id="layerOne">
-            <br>
-            <br>
-            <span>Layer One Filling</span>
-
-            <select ng-model="cake.layers[0].filling" ng-change="update('layers', cake.layers[0].filling, '1')" data-ng-options="filling as filling.name for filling in fillings">
-                <option value="">Select Filling</option>
-            </select>
-            {{currentPrices['layers'][0]['filling'].name}}
-
-
-
-        </div>
-        <div id="layerTwo" style="display: none">
-            <br>
-            <br>
-            <span>Layer Two Filling</span>
-
-            <select ng-model="cake.layers[1].filling" ng-change="update('layers', cake.layers[1].filling, '2')" data-ng-options="filling as filling.name for filling in fillings">
-                <option value="">Select Filling</option>
-            </select>
-            {{currentPrices['layers'][1]['filling'].name}}
-        </div>
-        <div id="layerThree" style="display: none">
-            <br>
-            <br>
-            <span>Layer Three Filling</span>
-
-            <select ng-model="cake.layers[2].filling" ng-change="update('layers', cake.layers[2].filling, '3')" data-ng-options="filling as filling.name for filling in fillings">
-                <option value="">Select Filling</option>
-            </select>
-            {{currentPrices['layers'][2]['filling'].name}}
-        </div>
-        <br>
-        <br>
     
-        <span>How many would you like to order?</span>
-        <error-message ng-show="cake.numOrdered.$touched && cake.numOrdered.$error.required">
-            Cake numOrdered is a required field.
-        </error-message>
-        <error-message ng-show="cake.numOrdered.$error.minlength">
-            Your cake name needs to be atleast 1 character long.
-        </error-message>
-        <input ng-model="cake.numOrdered" ng-change="update('numOrdered')" type="text" ng-minlength="1" required name="cakenumOrdered"><br>
-        <br>
-        <br>
-        <p><b>Cake Price</b></p>
-        <p>${{cake.price}}</p>
-        <br>
-        <br>
-        <button type="submit" >Build Cake!</button>
+
     </form>
+    <div id="cake-builder-wizard-buttons" class="text-center">
+        <a ui-sref-active="active" ui-sref="cake-builder.first"><span>1</span> Name & Pretty Things</a>
+        <a ui-sref-active="" ui-sref="cake-builder.second"><span>2</span> It's What's Inside</a>
+        <a ui-sref-active="" ui-sref="cake-builder.third"><span>3</span> Make It Mine</a>
+    </div>
 </div>
+
+
         <!-- <button ng-click="deleteCake(cake.name)">Delete Cake</button> -->
 
 
