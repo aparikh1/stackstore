@@ -13,7 +13,6 @@ var schema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Store'
 	},
-
 	quantity: { type: Number, default: 1 },
 
 	image: {

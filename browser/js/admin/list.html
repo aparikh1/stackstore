@@ -1,6 +1,6 @@
-<div ng-controller="AdminCtrl">
+<div ng-controller="AdminCateogryCtrl">
 
-	<button ui-sref="adminHome({storeId: storeId  })">Back to Admin Home</button>
+	<button ui-sref="adminHome({storeId: storeId })">Back to Admin Home</button>
 	<h1>{{cateName}} List</h1>
 
 	<div ng-repeat="item in itemList | orderBy: 'name'">

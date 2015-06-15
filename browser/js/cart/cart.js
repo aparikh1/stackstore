@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
         controller: 'CartCtrl',
         resolve: {
 
-        	getCartOfCakes: function (AuthService, $localStorage, $q, CakeFactory, CartFactory) {
+        	getCartOfCakes: function (AuthService, $state, $localStorage, $q, CakeFactory, CartFactory) {
 
 			    return AuthService.getLoggedInUser().then(function (user) {
 
@@ -18,18 +18,21 @@ app.config(function ($stateProvider) {
 
 			    }).then(function (userCart) {
 
-			    	if (userCart.cakes) {
+                    if(userCart){
+                        if (userCart.cakes) {
 
-			    		var cakes = userCart.cakes.map(function (cake) {
-		    				return CakeFactory.getCakes(cake);
-			    		});
+    			    		var cakes = userCart.cakes.map(function (cake) {
+    		    				return CakeFactory.getCakes(cake);
+    			    		});
 
-			    		return $q.all(cakes);
+    			    		return $q.all(cakes);
 
-			    	} else {
-			    		return userCart;
-			    	}
-
+    			    	} else {
+    			    		return userCart;
+    			    	}
+                        
+                    }
+                    
 			    }).then(function (cakes) {
 			    	return cakes;
 			    });
@@ -49,6 +52,10 @@ app.controller('CartCtrl', function ($scope, $state, $stateParams, $localStorage
     $scope.cart = getCartOfCakes;
 
     $scope.price = CartFactory.calculateCart($scope.cart);
+
+    $scope.currentStore = $localStorage.currentStore;
+
+    console.log("$scope.currentStore", $scope.currentStore)
 
     $scope.checkout = function (cart) {
 

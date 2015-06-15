@@ -1,6 +1,14 @@
-<h1>STORE SINGLE</h1>
+<h1>{{currentStore.name}}</h1>
 
+<br>
+<br>
+<h3>Custom Cakes</h3>
+<button ui-sref = "cake-builder({storeId: currentStore._id})">Build Your Cake</button>
+<br>
+<br>
+<h3>Stock Cakes</h3>
 <div ng-repeat="cake in products track by $index" class="storeItem">
+    {{cake}}
     <h5>Shape: {{ cake.shape.name }}</h5>
     <h5>Icing: {{ cake.icing.name }}</h5>
     <h5>Layers: {{ cake.layerNum }}</h5>

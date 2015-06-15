@@ -38,6 +38,10 @@
         {{currentPrices['layers'][2]['filling'].name}}
         <br>
         <br>
+        <p><b>Cake Order Quantity</b></p>
+        <p>{{cake.numOrdered}}</p>
+        <br>
+        <br>
         <p><b>Cake Price</b></p>
         <p>${{cake.price}}</p>
         <br>
@@ -81,7 +85,7 @@
         <select ng-model="cake.shape" ng-change="update('shape', cake.shape)" data-ng-options="shape as shape.name for shape in shapes">
             <option value="">Select Shape</option>
         </select>
-        {{currentPrices.shape.type}}
+        {{currentPrices.shape.name}}
         
         <br>
         <br>
@@ -127,11 +131,22 @@
         </div>
         <br>
         <br>
-        <button type="submit" >Build Cake!</button>
+    
+        <span>How many would you like to order?</span>
+        <error-message ng-show="cake.numOrdered.$touched && cake.numOrdered.$error.required">
+            Cake numOrdered is a required field.
+        </error-message>
+        <error-message ng-show="cake.numOrdered.$error.minlength">
+            Your cake name needs to be atleast 1 character long.
+        </error-message>
+        <input ng-model="cake.numOrdered" ng-change="update('numOrdered')" type="text" ng-minlength="1" required name="cakenumOrdered"><br>
+        <br>
+        <br>
         <p><b>Cake Price</b></p>
         <p>${{cake.price}}</p>
         <br>
         <br>
+        <button type="submit" >Build Cake!</button>
     </form>
 </div>
         <!-- <button ng-click="deleteCake(cake.name)">Delete Cake</button> -->

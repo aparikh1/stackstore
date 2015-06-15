@@ -15,15 +15,16 @@ var ReviewModel = mongoose.model('Review');
 
 
 
+
+
 router.get('/', function (req, res, next) {
     
     var getData = function(model){
-
- 	 	return model.find().exec()
+ 	 	return model.find({storeId : req.storeId}).exec()
     
     }
 
-    Promise.all([getData(FillingModel), getData(IcingModel), getData(ShapeModel), getData(ReviewModel)])
+    Promise.all([getData(FillingModel), getData(IcingModel), getData(ShapeModel), getData(ReviewModel), getData(CakeModel)])
     .then(function(ingredients){
 
     	res.send(ingredients)
@@ -35,31 +36,16 @@ router.post('/', function (req, res, next){
 
 	console.log("hit cake post route")
 	var cake = req.body
+	cake.storeId = req.storeId;
 	delete cake.selectedNumLayers
-	
-	// res.send(cake)
 
-	// var newCake = new CakeModel(cake);
-	// newCake.save(function (err) {
-	//   if (err) return next(err);
-	//   // saved!
-	//   console.log("custom cake was saved")
-	// })
 
 	CakeModel.create(cake, function (err, cake) {
 		if (err) return next(err);
 		console.log("custom cake was saved to database", cake)
-		console.log("cake", cake)
 		res.send(cake);
 
 	})
 
 })
 
-// router.delete('/:name', function (req,res,next){
-
-// 	console.log("hit delete route.  Here is the name", req.params.name)
-// 	// CakeModel.findByIdAndRemove(req.params.id, function(err, cake){
-// 	// 	console.log("Successfully removed cake")
-// 	// })
-// })

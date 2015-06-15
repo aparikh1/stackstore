@@ -1,13 +1,5 @@
 app.factory('StoreFCT', function ($http) {
 
-
-    var getAll = function(storeId) {
-        return $http.get(`/api/store/${storeId}`, function (data) {
-            console.log('CAKE DATA', data);
-            return data;
-        });
-    };
-
     var getOne = function(cakeId) {
         return $http.get('/api/store/'+cakeId, function (data) {
             console.log('SINGLE DATA', data);
@@ -62,7 +54,7 @@ app.factory('StoreFCT', function ($http) {
     }
 
     return {
-        getAll: getAll,
+
         getOne: getOne,
         addToAuthCart: addToAuthCart,
         addToUnauthCart: addToUnauthCart,

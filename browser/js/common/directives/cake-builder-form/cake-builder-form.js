@@ -1,4 +1,4 @@
-app.directive('buildForm', function (CakeFactory, $localStorage) {
+app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $stateParams, $state, CartFactory, StoreSingleFCT) {
 
     return {
         restrict: 'E',
@@ -6,11 +6,10 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
         templateUrl: 'js/common/directives/cake-builder-form/cake-builder-form.html',
         link: function (scope) {
 
+                console.log("current store (should not be undefined)", $rootScope.currentStore )
 
-                CakeFactory.getAllIngredients().then(function(ingredients){
+                CakeFactory.getAllIngredients($stateParams.storeId).then(function(ingredients){
 
-                    
-                    console.log(ingredients.data)
                     //make ingredients available on scope
                     scope.fillings = ingredients.data[0]
                     scope.icings = ingredients.data[1]
@@ -22,6 +21,7 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
 
                         name: null,
                         type: "custom",
+                        storeId: null,
                         price: 0,
                         shape: null,
                         icing: null,
@@ -36,6 +36,7 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
                         $localStorage.cake = {
                             name: null,
                             type: "custom",
+                            storeId: null,
                             price: 0,
                             shape: null,
                             icing: null,
@@ -56,6 +57,7 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
 
 
 
+
                     }
 
                     if(!$localStorage.currentPrices){
@@ -69,6 +71,13 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
                         }
                     }
 
+                    //bring storeId to scope and place on cake
+                    
+                    console.log("this should be the store Id", $stateParams.storeId)
+                    scope.storeId = $stateParams.storeId
+                    scope.cake.storeId = $stateParams.storeId
+                    $localStorage.cake.storeId = $stateParams.storeId
+
                     //store cost of last selected item to subtract from price upon replacement
                     // scope.cake.previousIcingPrice = 0 ;
                     // scope.cake.previousFillingPrice = [0,0,0];
@@ -76,6 +85,7 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
                     //to update cake object properties
                     scope.update = function(propName, propObj, layerNum){
 
+                        
                         //set scope.cake property
                         if(propName === "selectedNumLayers"){
                             scope.cake.selectedNumLayers = propObj
@@ -84,6 +94,10 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
 
                         //set properties on cake object and cake pricing object
                         
+                        if(propName === "numOrdered"){
+                            scope.currentPrices[propName] = scope.cake.numOrdered
+                        }
+
                         if(propName === "shape" || propName === "icing"){
                             
                             scope.cake[propName] = propObj._id
@@ -142,12 +156,12 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
                                 $localStorage.cake.key = cake.key
                                 
                             }
-                            for(var key in priceTracker){
-                                $localStorage.currentPrices.key = priceTracker.key
+                            for(var keyd in priceTracker){
+                                $localStorage.currentPrices.keyd = priceTracker.keyd
                             }
     
                             delete cake.key
-                            delete priceTracker.key
+                            delete priceTracker.keyd
                         }
                         scope.setCakeLocal(scope.cake, scope.currentPrices)
 
@@ -155,8 +169,9 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
      
                         //regenerate prices when we change the cake
                         scope.updatePrice = function(){
+                           
                             scope.cake.price = 0;
-                            console.log("setting prices: price tracker", scope.currentPrices)
+
                             if(scope.currentPrices.icing){
                                 scope.cake.price += scope.currentPrices.icing.price;
                             }
@@ -169,6 +184,9 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
                             if(scope.currentPrices.layers[2].filling !== null){
                                 scope.cake.price += scope.currentPrices.layers[2].filling.price
                             }
+                            if(scope.currentPrices.numOrdered){
+                                scope.cake.price *= parseInt(scope.currentPrices.numOrdered)
+                            }
                             console.log("cake", scope.cake)    
 
                         }
@@ -178,17 +196,24 @@ app.directive('buildForm', function (CakeFactory, $localStorage) {
                     // //for selecting the property to update w update function
                     scope.selectedNumLayers = "selectedNumLayers"
                     scope.numLayers = [1,2,3]
- 
+                    
+
                     
                     // //bring storeCake function to scope
-                    scope.storeCake = CakeFactory.storeCake
+                    scope.storeCake = function(cake){
+                        if(cake.numOrdered === undefined) cake.numOrdered = 1;
+                        console.log("check on add to see if numOrdered is autopopulated", cake)
+                        delete $localStorage.cake
+                        delete $localStorage.currentPrices
+                        StoreSingleFCT.addToCart(cake)
+                    
+                    }
+    
 
                     //persist cake in progress from local storage
                     scope.loadCakeFromLocal = function (){
                         scope.cake = $localStorage.cake;
-                        scope.currentPrices = $localStorage.currentPrices
-                        console.log("loaded cake from localStorage",scope.cake)
-                        console.log("loaded prices from localStorage", scope.currentPrices)    
+                        scope.currentPrices = $localStorage.currentPrices    
 
                     }
                     scope.loadCakeFromLocal();

@@ -150,7 +150,7 @@ var firstCap = function(str) {
 }
 
 app.controller('AdminCateogryCtrl', function ($scope, $state, AdminFCT, $stateParams) {
-
+    $scope.storeId = $stateParams.storeId;
     $scope.activeEditId = '';
     AdminFCT.getAllCategory($stateParams.storeId, $stateParams.category).then(function (data) {
         $scope.cateName = firstCap($stateParams.category);
@@ -194,6 +194,7 @@ app.controller('AdminCateogryCtrl', function ($scope, $state, AdminFCT, $statePa
     }
 
     $scope.removeForm = function() {
+        console.log('fire');
         $scope.newItem = false;
         $scope.activeEditId = '';
 

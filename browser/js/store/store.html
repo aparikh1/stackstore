@@ -4,26 +4,5 @@
     <h1>{{ store.name }}</h1>
     <p>{{store.description }}</p>
     <h5>Reviews: {{ store.reviewNum }}</h5>
-    <button ui-sref="storeViewProducts({storeId: store._id})">View Products</button>
-    <md-button class="md-raised">Button</md-button>
-
-
-  <md-content md-theme="docs-dark" layout-padding layout="row" layout-sm="column">
-    <md-input-container>
-      <label>Title</label>
-      <input ng-model="user.title">
-    </md-input-container>
-</md-content>
+    <button ng-click = "storeCast(store)" ui-sref="storeViewProducts({storeId: store._id})">View Products</button>
 </div>
-
-<!-- <div ng-repeat="cake in products track by $index" class="storeItem">
-    <h5>Shape: {{ cake.shape.name }}</h5>
-    <h5>Icing: {{ cake.icing.name }}</h5>
-    <h5>Layers: {{ cake.layerNum }}</h5>
-    <h5>Price: {{ cake.price }}</h5>
-    <h5>Filling: {{ cake.filling.name }}</h5>
-    <h5>Reviews: {{ cake.reviewNum }}</h5>
-    <button>View Product</button>
-    <button ng-click="addToCart(cake)">Add to cart</button>
-    <button ng-click="removeFromCart(cake)">Remove from cart</button>
-</div> -->

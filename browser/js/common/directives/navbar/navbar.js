@@ -7,20 +7,23 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         link: function (scope) {
 
             scope.items = [
-                { label: 'Home', state: 'home' },
-                { label: 'Signup', state: 'signup' },
-                { label: 'About', state: 'about' },
+                // { label: 'Home', state: 'home' },
+                // { label: 'About', state: 'about' },
+                { label: 'Admin', state: 'adminHome({storeId : user.storeId})', adminAuth: true },
                 { label: 'Store', state: 'store' },
                 // { label: 'Tutorial', state: 'tutorial' },
-                { label: 'Admin', state: 'adminHome({storeId : user.storeId})', adminAuth: true },
                 // { label: 'Members Only', state: 'membersOnly', auth: true },
                 { label: 'Cart', state: 'cart'}
             ];
 
             AuthService.getLoggedInUser().then(function (user) {
-                console.log(user);
-                if(!user.storeId) {
-                    scope.items.push({ label: 'Create A Store', state: 'storeCreate', auth: true });
+                // console.log('USER', user);
+                if(user === null){
+                    scope.items.push({ label: 'Signup', state: 'signup' });
+                } else {
+                    if(!user.storeId) {
+                        scope.items.push({ label: 'Create A Store', state: 'storeCreate', auth: true });
+                    }
                 }
             });
 
