@@ -15,6 +15,7 @@ app.factory('CartFactory', function ($http, AuthService, StoreFCT, $localStorage
 	        });
     	},
         updateCart: function (cake, user) {
+            console.log("here: store cake in auth cart")
             return $http.put('/api/cart/update', { cakes : cake, user : user }, function (response) {
 	            console.log('response', response);
 	            // return response; 
