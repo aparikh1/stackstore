@@ -1,5 +1,5 @@
 
-app.factory('CartFactory', function ($http, AuthService, StoreFCT, $localStorage, $state) {
+app.factory('CartFactory', function ($http, AuthService, StoreFCT, $localStorage, $state, OrderFactory) {
 
     return {
     	getCartByUser: function (user) {
@@ -36,7 +36,28 @@ app.factory('CartFactory', function ($http, AuthService, StoreFCT, $localStorage
                 })
             }
             return cartPrice;
-        }
+        },
+        checkOutCart: function(cart){
+
+            console.log("now checking out cart", cart)
+            // $localStorage.checkOut = true
+
+            // // $state.go()
+            var store = cart[0].storeId;
+
+            var cakes = cart.map(function (cake) {
+                return cake._id;
+            });
+
+            console.log("cake sthat just got checked out",cakes)
+
+            if (isAuthenticated) {
+                OrderFactory.createNewOrder(store, cakes, $scope.price);    
+            }
+                
+            
+        },
+
 
    };
 

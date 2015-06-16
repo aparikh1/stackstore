@@ -45,9 +45,11 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('CartCtrl', function ($scope, $state, $stateParams, $localStorage, CartFactory, OrderFactory, getCartOfCakes, isAuthenticated) {
+app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, $localStorage, CartFactory, OrderFactory, getCartOfCakes, AuthService, isAuthenticated) {
 
     $scope.cart = getCartOfCakes;
+
+    $scope.localCart = $localStorage.cart
 
     console.log('scope.cart', $scope.cart);
 
@@ -57,14 +59,25 @@ app.controller('CartCtrl', function ($scope, $state, $stateParams, $localStorage
 
     $scope.checkout = function (cart) {
 
-    	var store = cart[0].storeId;
+        if(!AuthService.isAuthenticated()){
+            $state.go("signup")
+        }
 
-    	var cakes = cart.map(function (cake) {
-    		return cake._id;
-    	});
+        var store = cart[0].storeId;
 
-    	if (isAuthenticated) {
-    		OrderFactory.createNewOrder(store, cakes, $scope.price);	
+        var cakes = cart.map(function (cake) {
+            return cake._id;
+        });
+
+        console.log("arrayed cakes", cakes)
+        console.log("authenticated?", AuthService.isAuthenticated() )
+
+        if (AuthService.isAuthenticated()) {
+            OrderFactory.createNewOrder(store, cakes, $scope.price).then(function(order){
+                console.log(order)
+                delete $scope.cart
+            // $state.go()
+            })
     	}
     	
     };

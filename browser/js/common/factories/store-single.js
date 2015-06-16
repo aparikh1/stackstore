@@ -1,7 +1,7 @@
 app.factory('StoreSingleFCT', function ($http, $state, $rootScope, AuthService, StoreFCT, $localStorage, CartFactory) {
 
     var getAll = function(storeId) {
-        return $http.get(`/api/store/${storeId}`, function (data) {
+        return $http.get("/api/store/"+storeId, function (data) {
             console.log('CAKE DATA', data);
             return data;
         });

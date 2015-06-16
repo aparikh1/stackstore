@@ -1,8 +1,18 @@
-app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthService, StoreSingleFCT, $stateParams) {
+app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthService, $state, StoreSingleFCT, $stateParams) {
 
     return {
 
-    	getCakes: function (cakeid) {
+    	getUserInfo: function (scope) {
+            if (AuthService.isAuthenticated()) {
+                AuthService.getLoggedInUser().then(function (user) {
+                    console.log(user)
+                    scope.user = user
+                    return user;
+                })
+            }
+        },
+
+        getCakes: function (cakeid) {
     		if (cakeid) {
     			return $http.get('/api/cake/' + cakeid).then(function(response){
 	            	console.log('response.data', response.data);
@@ -33,11 +43,24 @@ app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthServ
 
             if (AuthService.isAuthenticated()) {
                 return $http.post('/api/store/'+cakeObj.storeId+'/cake_builder', cakeObj).then(function(cake){
+                    AuthService.getLoggedInUser().then(function (user) {
+                        console.log("admin check user after build stock cake", user)
+                        if(user.admin){
 
-                    console.log("cake returned after save",cake.data)
-                    $localStorage.lastCake = cake.data
-                    StoreSingleFCT.addToCart(cake.data)
-                    return cake
+                            
+                            console.log("user.storeId before state go", user.storeId)
+                            $state.go("adminHome",{storeId : user.storeId})
+                            return cake
+
+
+                        }else{
+                            console.log("cake returned after save", cake.data)
+                            $localStorage.lastCake = cake.data
+                            StoreSingleFCT.addToCart(cake.data)
+                            return cake
+                        }
+
+                    });
 
                 });
             }
@@ -47,6 +70,11 @@ app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthServ
 
             }
         },
+        // transferCustomCakes : function(){
+
+
+
+        // },
         setCakeLocal: function(cake, priceTracker){
                             for(var key in cake){
                                 $localStorage.cake[key] = cake[key]
@@ -109,7 +137,6 @@ app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthServ
 
         },
         setScopeProps: function(scope){
-
                     //create layers templates for cake object
                     scope.cake = {layers:[{ position: 1, filling: null}
                         ,{position: 2, filling: null},{ position: 3, filling: null}], type: "custom"}

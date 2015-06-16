@@ -21,6 +21,10 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                     //bring storeCake function to scope
                     scope.storeCake = CakeFactory.storeCake
 
+                    //set user on scope
+                    
+                    CakeFactory.getUserInfo(scope);
+
 
                     //to update cake object properties
                     scope.update = function(propName, propObj, layerNum){

@@ -28,8 +28,6 @@ app.controller('StoreSingleCtrl', function ($scope, AuthService, $state, StoreSi
         // });
     });
 
-
-
  
     $scope.addToCart = StoreSingleFCT.addToCart
 
