@@ -28,6 +28,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, $localStorage
         $scope.error = null;
 
         AuthService.login(loginInfo).then(function (user) {
+            console.log('user', loginInfo);
             CartFactory.updateCart($localStorage.cart, user);
         }).then(function () {
             $localStorage.cart = [];
@@ -58,10 +59,10 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, $localStorage
                 
 
             }
-            cartParseSave($localStorage.cart);
+        // cartParseSave($localStorage.cart);
 
-            return user;
-        });
+        // return user;
+    };
         // .then(function () {
         //     CartFactory.updateCart($localStorage.cart, user).then(function){
         //     })
@@ -79,7 +80,4 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, $localStorage
         // }).catch(function () {
         //     $scope.error = 'Invalid login credentials.';
         // });
-
-    };
-
 });
