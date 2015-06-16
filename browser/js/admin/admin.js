@@ -22,25 +22,25 @@ app.config(function ($stateProvider) {
     //     data: { adminAuthenticate: true }
     // });
 
-    $stateProvider.state('adminCategory', {
-        url: '/store/:storeId/admin/:category',
-        templateUrl: 'js/admin/list.html',
-        controller: 'AdminCateogryCtrl',
+
+    $stateProvider.state('adminOrders', {
+        url: '/store/:storeId/admin/orders',
+        templateUrl: 'js/admin/orders/list.html',
+        controller: 'AdminOrderCtrl',
         data: { adminAuthenticate: true }
     });
 
     $stateProvider.state('adminHome', {
-        url: '/store/:storeId/admin',
+        url: '/store/:storeId/adminHome',
         templateUrl: 'js/admin/home.html',
         controller: 'AdminCtrl',
         data: { adminAuthenticate: true }
     });
 
-    $stateProvider.state('adminOrders', {
-        url: '/store/:storeId/admin/orders',
-        templateUrl: 'js/admin/orders/list.html',
-        controller: 'AdminCtrl',
-        // controller: 'AdminOrderCtrl',
+    $stateProvider.state('adminCategory', {
+        url: '/store/:storeId/admin/category/:category',
+        templateUrl: 'js/admin/list.html',
+        controller: 'AdminCateogryCtrl',
         data: { adminAuthenticate: true }
     });
 });
@@ -59,10 +59,15 @@ app.controller('AdminCtrl', function ($scope, $state, AdminFCT, $stateParams) {
 
 
 app.controller('AdminUsersCtrl', function ($scope, $state, AdminFCT, AuthService, $stateParams) {
+    $scope.loading = true;
     $scope.storeId = $stateParams.storeId;
     $scope.searchInput = false;
     AuthService.getLoggedInUser($stateParams.storeId).then(function (user){
-        $scope.theUser = user;
+        setTimeout(function() {
+            $scope.theUser = user;
+            $scope.loading = false;
+            $scope.$digest();
+        }, 2000);
     });
 
     AdminFCT.getAdminUsers($stateParams.storeId).then(function (data){
@@ -83,12 +88,13 @@ app.controller('AdminUsersCtrl', function ($scope, $state, AdminFCT, AuthService
     };
 
     $scope.searchUser = function (email) {
+        $scope.loading = true;
         AdminFCT.searchNonAdminUser($stateParams.storeId, email).then(function (data) {
-        setTimeout(function() {
-            $scope.searchReturn = data.data;
-            $scope.loading = false;
-            $scope.$digest();
-        }, 2000);
+            setTimeout(function() {
+                $scope.searchReturn = data.data;
+                $scope.loading = false;
+                $scope.$digest();
+            }, 2000);
         });
     };
 
@@ -117,27 +123,27 @@ app.controller('AdminUsersCtrl', function ($scope, $state, AdminFCT, AuthService
 
 
 app.controller('AdminOrderCtrl', function ($scope, AdminFCT, OrderFactory, $stateParams) {
-    console.log('HERE');
-    // $scope.storeId = $stateParams.storeId;
-    // console.log('HERE');
-    // console.log('HERE');
-    // AdminFCT.getAllOrders().then(function (data) {
-    //     $scope.orderList = data.data;
-    // });
-    // OrderFactory.completeOrder('557f8fc5f7ff98ba1bb86dcf').then(function (data){
-    //     console.log('data', data);
-    // })
+    $scope.storeId = $stateParams.storeId;
+    AdminFCT.getAllOrders($stateParams.storeId).then(function (data) {
+        console.log('ORDERS', data.data)
+        $scope.orderList = data.data;
+    });
+
     
 
-    // $scope.completeOrder = function(orderId) {
-    //     console.log('completeOrder RETURN' orderId);
-    // }
+    $scope.completeOrder = function(orderId) {
+        OrderFactory.completeOrder(orderId, $scope.storeId).then(function (data){
+            console.log('data', data);
+        });
+        
+        console.log('completeOrder RETURN', orderId);
+    }
 });
 
 app.controller('AdminCakeCtrl', function ($scope, $state, AdminFCT, $stateParams, StoreSingleFCT) {
-    console.log("You are in AdminCakeCtrl")
+    // console.log("You are in AdminCakeCtrl")
     $scope.storeId = $stateParams.storeId;
-    console.log("this hsould be store ID", $scope.storeId)
+    // console.log("this hsould be store ID", $scope.storeId)
     StoreSingleFCT.getAll($stateParams.storeId).then(function (data) {
         $scope.cakeList = data.data;
         console.log("here are the cakes you should see", data)

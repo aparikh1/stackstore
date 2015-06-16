@@ -5,7 +5,6 @@ app.config(function ($stateProvider) {
 		controller: 'reviewFormCtrl',
 		resolve: {
 			isAuthenticated: function (AuthService) {
-				console.log('HERE');
 				return AuthService.isAuthenticated();
 			}
 		}

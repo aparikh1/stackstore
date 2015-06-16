@@ -82,5 +82,38 @@ app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, 
     	
     };
 
+    $scope.calculateOrders = function (cakeArray) {
+        var retArr = [];
+        var orderObj = function(storeId) {
+            this.storeId = storeId;
+            this.cakes = [];
+            this.total = 0;
+        }
+        cakeArray.forEach(function (cake) {
+            if(!retArr.length) {
+                retArr.push(new orderObj(cake.storeId.toString()));
+                retArr[0].cakes.push(cake._id);
+                retArr[0].total += cake.price;
+            }
+            else {
+                var exists = false;
+                var index = null;
+                for(var i=0; i < retArr.length;i++) {
+                    if(retArr[i].storeId === cake.storeId.toString()) {
+                        exists = true;
+                        retArr[i].cakes.push(cake._id);
+                        retArr[i].total += cake.price;
+                    }
+                }
+                if(!exists) {
+                    retArr.push(new orderObj(cake.storeId.toString()));
+                    retArr[retArr.length-1].cakes.push(cake._id);
+                    retArr[retArr.length-1].total += cake.price;
+                }
+            }
+        });
+        console.log('ORDER ARRAY', retArr);
+    }
+
 
 });

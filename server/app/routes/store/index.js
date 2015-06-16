@@ -4,6 +4,7 @@ module.exports = router;
 var _ = require('lodash');
 var body = require('body-parser');
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate');
 var CakeModel = mongoose.model('Cake');
 var StoreModel = mongoose.model('Store');
 var Promise = require('bluebird');
@@ -26,20 +27,17 @@ router.get('/:storeId', function (req, res, next) {
     StoreModel.findById(req.params.storeId).exec().then(function (store) {
         return store;
     }).then(function (store) {
-    	CakeModel.find({ storeId: store._id }).exec().then(function (cakes) {
-    		res.send(cakes);
-    	});
+        CakeModel.find({storeId: store._id})
+            .populate('shape','type description')
+            .populate('icing','name description price')
+            .populate('filling','name description price')
+            .populate('reviews').exec()
+            .then(function (cakesArr){
+                console.log('CAKES ARR', cakesArr);
+                res.send(cakesArr);
+            });
     });
     // var id = req.params.storeId;
-    // CakeModel.find({id: id})
-    //     .populate('shape','type description')
-    //     .populate('icing','name description price')
-    //     .populate('filling','name description price')
-    //     .populate('reviews').exec(function (err, cakesArr){
-    //         if(err) next(err);
-    //         console.log('CAKES ARR', cakesArr);
-    //         res.send(cakesArr);
-    //     });
     // CakeModel.findOne({_id: id}, function (err, cake) {
     //     if(err) next(err);
     //     console.log('THE CAKE', cake);

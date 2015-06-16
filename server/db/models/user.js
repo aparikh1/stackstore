@@ -28,7 +28,9 @@ var schema = new mongoose.Schema({
     storeId: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Store'
-	}
+	},
+
+    adminOwner: { type: Boolean, default: false },
 
 });
 

@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, StoreFCT, reviewFCT) {
 
     return {
         restrict: 'E',
@@ -17,6 +17,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                     if(user === null){
                         scope.items.push({ label: 'Signup', state: 'signup' });
                     } else {
+                        if(hasPendingReviews()) {
+                            scope.items.push({ label: 'Review Products', state: 'reviewProduct', auth: true });
+                        }
                         if(!user.storeId) {
                             scope.items.push({ label: 'Create A Store', state: 'storeCreate', auth: true });
                         }
@@ -53,6 +56,12 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                     }
                 });
             };
+
+            var hasPendingReviews = function () {
+                reviewFCT.getUnwrittenReviews().then(function (data) {
+                    return data.data.length;
+                });
+            }
 
             var removeUser = function () {
                 scope.user = null;

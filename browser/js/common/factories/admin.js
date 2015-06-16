@@ -86,8 +86,15 @@ app.factory('AdminFCT', function ($http) {
 
     var getStoreInfo = function(storeId) {
         return $http.get('/api/store/'+storeId, function (data) {
+            console.log('CAKES IN', data.data);
             return data;
         });
+    }
+
+    var getAllOrders = function(storeId) {
+        return $http.get('/api/store/'+storeId+'/admin/order', function (data) {
+            return data;
+        })
     }
 
     return {
@@ -107,7 +114,9 @@ app.factory('AdminFCT', function ($http) {
         searchNonAdminUser: searchNonAdminUser,
         makeAdminUser: makeAdminUser,
 
-        getStoreInfo: getStoreInfo
+        getStoreInfo: getStoreInfo,
+
+        getAllOrders: getAllOrders
     };
 
 });

@@ -5,11 +5,14 @@
 <h1>{{cateName}} List</h1>
 
 <div ng-repeat="item in itemList | orderBy: 'name'">
-	<h3>{{item.name}} <span ng-show="cateName !== 'Shape'">- {{item.price | currency}}</span></h3>
-	<p>{{item.description}}</p>
-	<button ng-click="showEditItem(item._id)">Edit</button>
-	<button ng-click="deleteItem(item._id)">Delete</button>
+	<div ng-hide="activeEditId === item._id">
+		<h3>{{item.name}} <span ng-show="cateName !== 'Shape'">- {{item.price | currency}}</span></h3>
+		<p>{{item.description}}</p>
+		<button ng-click="showEditItem(item._id)">Edit</button>
+		<button ng-click="deleteItem(item._id)">Delete</button>
+	</div>
 	<admin-item-form ng-show="!newItem"></admin-item-form>
+	<hr>
 </div>
 <br/>
 <br/>

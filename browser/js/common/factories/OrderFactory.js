@@ -7,10 +7,10 @@ app.factory('OrderFactory', function ($http, StoreFCT, AuthService) {
                 return response.data; 
            });
        },
-       completeOrder: function (orderId) {
-       		return $http.put('/api/order/'+orderId+'/complete', {status: 'Complete'}, function (data) {
-       			return data.data;
-       		});
+       completeOrder: function (orderId, storeId) {
+          return $http.put('/api/store/'+storeId+'/order/'+orderId+'/complete', {status: 'Complete'}, function (data) {
+            return data.data;
+          });
        }
    };
 

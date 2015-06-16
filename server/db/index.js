@@ -20,7 +20,6 @@ require('./models/review');
 require('./models/shape');
 require('./models/order');
 require('./models/store');
-require('./models/openReview');
 
 var startDbPromise = new Q(function (resolve, reject) {
     db.on('open', resolve);

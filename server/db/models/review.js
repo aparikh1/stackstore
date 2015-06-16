@@ -10,11 +10,11 @@ var schema = new mongoose.Schema({
 
     productId: { type: String, required: true },
 
-    category: { type: String, required: true },
+    category: { type: String},
 
-    shortSummary: { type: String, required: true },
+    shortSummary: { type: String},
 
-    description: { type: String, required: true },
+    description: { type: String},
     
     stars: {
     	type: Number,
@@ -25,6 +25,11 @@ var schema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+
+    reviewCompleted: {
+        type: Boolean,
+        default: false
     }
 
 });

@@ -33,7 +33,10 @@ var schema = new mongoose.Schema({
 
 schema.plugin(deepPopulate, {
 	populate: {
-	    'items': 'Cake'
+	    'items': 'Cake',
+	    'items.layer.filling': {
+	      select: '_id name storeId'
+	    }
 	}
 });
 
