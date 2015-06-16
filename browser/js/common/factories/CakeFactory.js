@@ -1,4 +1,4 @@
-app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthService, $state, StoreSingleFCT, $stateParams) {
+app.factory('CakeFactory', function ($http, $localStorage, AuthService, $state, StoreSingleFCT, $stateParams) {
 
     return {
 

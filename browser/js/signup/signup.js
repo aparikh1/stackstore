@@ -27,9 +27,9 @@ app.controller('SignUpCtrl', function ($scope, AuthService, $state, $localStorag
         // console.log("should have set checkingout to true", $scope.checkingOut)
         
         AuthService.signup(signupInfo).then(function (user) {
-            if($localStorage.cart.length !== 0){
-                CartFactory.createNewCart($localStorage.cart, user)
-            }                
+            if($localStorage.cart === undefined) $localStorage.cart = []
+                return CartFactory.createNewCart($localStorage.cart, user)
+                          
         
         }).then(function () {
     
