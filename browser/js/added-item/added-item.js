@@ -7,16 +7,16 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('AddedItemCtrl', function ($rootScope, $scope, AuthService, $state, CakeFactory, $localStorage, StoreFCT) {
+app.controller('AddedItemCtrl', function ($rootScope, $scope, AuthService, $state, CakeFactory, $localStorage, StoreFCT, CartFactory) {
 
+    if (AuthService.isAuthenticated()) {
+    	$scope.lastCake = $localStorage.lastCake
+    	delete $localStorage.lastCake
+    } else {
+        $scope.lastCake = $localStorage.cart[$localStorage.cart.length-1]
+    }
 	
-	$scope.lastCake = $localStorage.cart[$localStorage.cart.length-1];
-	// $scope.storeId = $scope.lastCake.storeId
-	// $rootScope.$on('storeCast', function (event, args) {
-	// 	$scope.currentStore = args.store;
-	// 	$scope.$digest()
-	// 	console.log($scope.currentStore);
-	// });
+	// $scope.lastCake = $localStorage.cart[$localStorage.cart.length-1];
 	$scope.currentStore = $localStorage.currentStore;
 
 });

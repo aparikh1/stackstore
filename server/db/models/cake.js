@@ -15,6 +15,8 @@ var schema = new mongoose.Schema({
 	},
 	quantity: { type: Number, default: 1 },
 
+	numOrdered: { type: Number, default: 1},
+
 	image: {
 		type: [String],
 		default: [

@@ -12,6 +12,7 @@ var FillingModel = mongoose.model('Filling');
 
 router.post('/store', function (req, res, next) {
 	var d = req.body;
+    console.log("req body create store", d)
     var store = new StoreModel();
     store.name = d.name;
     store.description = d.description;

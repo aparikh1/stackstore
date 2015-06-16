@@ -12,6 +12,7 @@ app.config(function ($stateProvider) {
 app.controller('StoreCreateCtrl', function ($scope, $state, StoreFCT, $stateParams, $rootScope, AuthService) {
 
     AuthService.getLoggedInUser().then(function (user) {
+        user.admin = true;
         if(user.storeId) $state.go('adminHome', { storeId : user.storeId });
     });
 

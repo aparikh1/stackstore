@@ -134,13 +134,13 @@ app.controller('AdminOrderCtrl', function ($scope, AdminFCT, OrderFactory, $stat
     // }
 });
 
-app.controller('AdminCakeCtrl', function ($scope, $state, AdminFCT, $stateParams) {
+app.controller('AdminCakeCtrl', function ($scope, $state, AdminFCT, $stateParams, StoreSingleFCT) {
+    console.log("You are in AdminCakeCtrl")
     $scope.storeId = $stateParams.storeId;
-    AdminFCT.getAllCake($stateParams.storeId).then(function (data) {
-        $scope.icingList = data.data[0];
-        $scope.fillingList = data.data[1];
-        $scope.shapeList = data.data[2];
-        $scope.cakeList = data.data[3];
+    console.log("this hsould be store ID", $scope.storeId)
+    StoreSingleFCT.getAll($stateParams.storeId).then(function (data) {
+        $scope.cakeList = data.data;
+        console.log("here are the cakes you should see", data)
     });
 
 

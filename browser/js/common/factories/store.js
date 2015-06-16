@@ -42,6 +42,8 @@ app.factory('StoreFCT', function ($http) {
     };
 
     var createNewStore = function (store) {
+        
+        console.log("hit create store function, here is store", store)
         return $http.post('/api/create/store', store, function (data){
             return data;
         });

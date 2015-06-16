@@ -9,7 +9,7 @@
 	Price: ${{ c.price }} </br><br/>
 </div>
 
-<h2 ng-show = "currentStore === undefined">Your Cart is Empty.  We recommend the cake!</h2><br>
+<h2 ng-show = "cart.length === 0 || currentStore === undefined">Your Cart is Empty.  We recommend the cake!</h2><br>
 
 
 TOTAL: ${{ price }}
@@ -20,4 +20,4 @@ TOTAL: ${{ price }}
 <button ng-click="checkout(cart)">Checkout</button>
 
 
-<pre>{{ localCart | json : 4 }}</pre>
+<pre>{{ localCart | json : 4 }}</pre> 

@@ -10,9 +10,12 @@ app.factory('StoreSingleFCT', function ($http, $state, $rootScope, AuthService, 
     
 
     var addToCart = function (cake) {
+
         console.log('cake', cake);
+
         if (AuthService.isAuthenticated()) {
             AuthService.getLoggedInUser().then(function (user) {
+                $localStorage.lastCake = cake
                 StoreFCT.addToAuthCart(user, cake, CartFactory);
             });
         } else {

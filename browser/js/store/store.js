@@ -26,8 +26,6 @@ app.controller('StoreSingleCtrl', function ($scope, AuthService, $state, StoreSi
         // });
     });
 
-
-
  
     $scope.addToCart = StoreSingleFCT.addToCart;
 
@@ -41,7 +39,7 @@ app.controller('StoreSingleCtrl', function ($scope, AuthService, $state, StoreSi
 
 app.controller('StoreCtrl', function ($rootScope, $scope, AuthService, $state, StoreFCT, $localStorage, CartFactory) {
 
-    $rootScope.currentStore = undefined;
+    $localStorage.currentStore = undefined;
 
     $scope.storeCast = function(store){
         
