@@ -8,7 +8,11 @@ var schema = new mongoose.Schema({
 		required: true
 	},
 
-    summary: { type: String, required: true },
+    productId: { type: String, required: true },
+
+    category: { type: String, required: true },
+
+    shortSummary: { type: String, required: true },
 
     description: { type: String, required: true },
     
@@ -16,6 +20,11 @@ var schema = new mongoose.Schema({
     	type: Number,
     	min: 1,
     	max: 5
+    },
+
+    date: {
+        type: Date,
+        default: Date.now
     }
 
 });

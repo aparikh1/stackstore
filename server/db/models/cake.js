@@ -60,7 +60,7 @@ var cakeTypes = {
 schema.plugin(deepPopulate, {
 	populate: {
 	    'layers.filling': {
-	      select: 'name'
+	      select: '_id name storeId'
 	    }
 	}
 });

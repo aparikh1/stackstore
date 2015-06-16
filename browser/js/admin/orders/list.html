@@ -1,17 +1,13 @@
-<div ng-controller="AdminCtrl">
-	<button ui-sref="adminHome({storeId: storeId  })">Back to Admin Home</button>
-	<h1>Order List</h1>
+<button ui-sref="adminHome({storeId: storeId})">Back to Admin Home</button>
+<h1>Order List BALLS</h1>
 
-	<div ng-repeat="order in orderList">
-		<h1>{{order.status }}</h1>
-		<button ng-click="showEditCake(cake._id)">Process</button>
-	    <button ng-click="deleteCake(cake._id)">Cancel</button>
-		<button ng-click="deleteCake(cake._id)">Complete</button>
-		<admin-cake-form ng-show="!newCake"></admin-cake-form>
-	</div>
-	<br/>
-	<br/>
-	<button ng-show="!newCake" ng-click="newCake = true">New {{cateName}}</button>
-
-	<admin-cake-form></admin-cake-form>
+<div ng-repeat="order in orderList">
+	<h1>{{order.status }}</h1>
+	<button ng-click="showEditCake(cake._id)">Process</button>
+    <button ng-click="deleteCake(cake._id)">Cancel</button>
+	<button ng-click="deleteCake(cake._id)">Complete</button>
+	<admin-cake-form ng-show="!newCake"></admin-cake-form>
 </div>
+<br/>
+<br/>
+<button ng-show="!newCake" ng-click="newCake = true">New {{cateName}}</button>

@@ -12,6 +12,7 @@ router.use('/create', require('./storeCreate'));
 router.use('/members', require('./members'));
 router.use('/store/:storeId/cake_builder', require('./cake_builder'));
 router.use('/cake', require('./cake'));
+router.use('/review', require('./review'));
 router.use('/cart', require('./cart'));
 router.use('/order', require('./order'));
 router.use('/store/:storeId/admin', require('./admin'));

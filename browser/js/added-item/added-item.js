@@ -10,13 +10,13 @@ app.config(function ($stateProvider) {
 app.controller('AddedItemCtrl', function ($rootScope, $scope, AuthService, $state, CakeFactory, $localStorage, StoreFCT) {
 
 	
-	$scope.lastCake = $localStorage.cart[$localStorage.cart.length-1]
+	$scope.lastCake = $localStorage.cart[$localStorage.cart.length-1];
 	// $scope.storeId = $scope.lastCake.storeId
 	// $rootScope.$on('storeCast', function (event, args) {
 	// 	$scope.currentStore = args.store;
 	// 	$scope.$digest()
 	// 	console.log($scope.currentStore);
 	// });
-	$scope.currentStore = $localStorage.currentStore
+	$scope.currentStore = $localStorage.currentStore;
 
 });

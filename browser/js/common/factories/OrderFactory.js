@@ -6,6 +6,11 @@ app.factory('OrderFactory', function ($http, StoreFCT, AuthService) {
                 console.log('response', response);
                 return response; 
            });
+       },
+       completeOrder: function (orderId) {
+       		return $http.put('/api/order/'+orderId+'/complete', {status: 'Complete'}, function (data) {
+       			return data.data;
+       		});
        }
    };
 

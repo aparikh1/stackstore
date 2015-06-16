@@ -21,21 +21,5 @@ app.controller('StoreCreateCtrl', function ($scope, $state, StoreFCT, $statePara
             console.log('storeId', $rootScope.storeId);
             $state.go('adminHome', { storeId : data.data._id });
         });
-    }
-    // var cartData = [];
-
-    // StoreFCT.getOne($stateParams.id)
-    //     .then(function (data) {
-    //         console.log('SINGLE CAKE', data);
-    //         $scope.cake = data.data;
-    //     });
-
-    // $scope.addToCart = function (cake) {
-    //     StoreFCT.addToCart($localStorage, cartData, cake);
-    // }
-
-    // $scope.removeFromCart = function (cake) {
-    //     StoreFCT.removeFromCart($localStorage, cartData, cake);
-    // }
-
+    };
 });

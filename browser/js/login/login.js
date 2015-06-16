@@ -21,7 +21,8 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, $localStorage
             CartFactory.updateCart($localStorage.cart, user);
         }).then(function () {
             $localStorage.cart = [];
-            $state.go('home');
+            $state.go('store');
+            // $state.go('home');
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
         });

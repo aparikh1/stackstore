@@ -114,7 +114,7 @@
         };
 
         function successSignUpFunct(credentials) {
-            console.log('SUCCESS', credentials);
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return credentials;
         }
 

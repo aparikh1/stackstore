@@ -12,8 +12,6 @@ app.config(function ($stateProvider) {
         controller: 'StoreSingleCtrl'
     });
 
-
-
 });
 
 app.controller('StoreSingleCtrl', function ($scope, AuthService, $state, StoreSingleFCT, $stateParams, $localStorage, CartFactory) {
@@ -31,11 +29,11 @@ app.controller('StoreSingleCtrl', function ($scope, AuthService, $state, StoreSi
 
 
  
-    $scope.addToCart = StoreSingleFCT.addToCart
+    $scope.addToCart = StoreSingleFCT.addToCart;
 
-    $scope.removeFromCart = StoreSingleFCT.removeFromCart
+    $scope.removeFromCart = StoreSingleFCT.removeFromCart;
 
-    $scope.currentStore = $localStorage.currentStore
+    $scope.currentStore = $localStorage.currentStore;
 
 
 
@@ -51,7 +49,6 @@ app.controller('StoreCtrl', function ($rootScope, $scope, AuthService, $state, S
         
         // $rootScope.$emit('storeCast', { store: store}); 
         $localStorage.currentStore = store;
-    
     }
 
     StoreFCT.getAllStores().then(function (data) {

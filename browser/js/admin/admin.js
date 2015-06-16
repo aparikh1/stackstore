@@ -1,11 +1,5 @@
 app.config(function ($stateProvider) {
 
-    $stateProvider.state('adminHome', {
-        url: '/store/:storeId/admin',
-        templateUrl: 'js/admin/home.html',
-        controller: 'AdminCtrl',
-        data: { adminAuthenticate: true }
-    });
 
     $stateProvider.state('adminStockCakes', {
         url: '/store/:storeId/admin/cake',
@@ -21,19 +15,12 @@ app.config(function ($stateProvider) {
         data: { adminAuthenticate: true }
     });
 
-    $stateProvider.state('adminStockCakes.outOfStock', {
-        url: '/store/:storeId/admin/cake/out',
-        templateUrl: 'js/admin/cake/list.html',
-        controller: 'AdminCakeQuantityCtrl',
-        data: { adminAuthenticate: true }
-    });
-
-    $stateProvider.state('adminOrders', {
-        url: '/store/:storeId/admin/orders',
-        templateUrl: 'js/admin/orders/list.html',
-        controller: 'AdminOrderCtrl',
-        data: { adminAuthenticate: true }
-    });
+    // $stateProvider.state('adminStockCakes.outOfStock', {
+    //     url: '/store/:storeId/admin/cake/out',
+    //     templateUrl: 'js/admin/cake/list.html',
+    //     controller: 'AdminCakeQuantityCtrl',
+    //     data: { adminAuthenticate: true }
+    // });
 
     $stateProvider.state('adminCategory', {
         url: '/store/:storeId/admin/:category',
@@ -42,9 +29,24 @@ app.config(function ($stateProvider) {
         data: { adminAuthenticate: true }
     });
 
+    $stateProvider.state('adminHome', {
+        url: '/store/:storeId/admin',
+        templateUrl: 'js/admin/home.html',
+        controller: 'AdminCtrl',
+        data: { adminAuthenticate: true }
+    });
+
+    $stateProvider.state('adminOrders', {
+        url: '/store/:storeId/admin/orders',
+        templateUrl: 'js/admin/orders/list.html',
+        controller: 'AdminCtrl',
+        // controller: 'AdminOrderCtrl',
+        data: { adminAuthenticate: true }
+    });
 });
 
 app.controller('AdminCtrl', function ($scope, $state, AdminFCT, $stateParams) {
+    console.log('blah');
     AdminFCT.getStoreInfo($stateParams.storeId).then(function (data) {
         $scope.storeName = data.data.name;
         console.log('DATA', data);
@@ -73,18 +75,22 @@ app.controller('AdminUsersCtrl', function ($scope, $state, AdminFCT, AuthService
                 if(user._id !== userId) return user;
             });
         });
-    }
+    };
 
     $scope.searchNonAdminUser = function () {
         $scope.searchInput = true;
         $scope.searchReturn = [];
-    }
+    };
 
     $scope.searchUser = function (email) {
         AdminFCT.searchNonAdminUser($stateParams.storeId, email).then(function (data) {
+        setTimeout(function() {
             $scope.searchReturn = data.data;
+            $scope.loading = false;
+            $scope.$digest();
+        }, 2000);
         });
-    }
+    };
 
     $scope.makeAdmin = function (userId) {
         AdminFCT.makeAdminUser($stateParams.storeId, userId).then(function (data) {
@@ -92,7 +98,7 @@ app.controller('AdminUsersCtrl', function ($scope, $state, AdminFCT, AuthService
             $scope.searchInput = false;
             $scope.userList.push(data.data);
         });
-    }
+    };
 
 });
 
@@ -110,10 +116,22 @@ app.controller('AdminUsersCtrl', function ($scope, $state, AdminFCT, AuthService
 // });
 
 
-app.controller('AdminOrderCtrl', function ($scope, AdminFCT) {
+app.controller('AdminOrderCtrl', function ($scope, AdminFCT, OrderFactory, $stateParams) {
+    console.log('HERE');
+    // $scope.storeId = $stateParams.storeId;
+    // console.log('HERE');
+    // console.log('HERE');
     // AdminFCT.getAllOrders().then(function (data) {
     //     $scope.orderList = data.data;
     // });
+    // OrderFactory.completeOrder('557f8fc5f7ff98ba1bb86dcf').then(function (data){
+    //     console.log('data', data);
+    // })
+    
+
+    // $scope.completeOrder = function(orderId) {
+    //     console.log('completeOrder RETURN' orderId);
+    // }
 });
 
 app.controller('AdminCakeCtrl', function ($scope, $state, AdminFCT, $stateParams) {
@@ -129,12 +147,20 @@ app.controller('AdminCakeCtrl', function ($scope, $state, AdminFCT, $stateParams
 
     $scope.newCake = false;
     $scope.activeCakeEditId = '';
+    // $scope.cake.layers = [{number: 1, filling: undefined},{number: 2, filling: undefined},{number: 3, filling: undefined}];
 
+    $scope.changeLayerNum = function(number) {
+        // console.log('Layers', number);
+        // for(var i = 1; i <= number;i++) {
+        //     $scope.cake.layers[i].filling = null;
+        // }
+        // $scope.apply();
+    };
 
     $scope.showEditCake = function(cakeId) {
         $scope.newCake = false;
         $scope.activeCakeEditId = cakeId;
-    }
+    };
 
     $scope.deleteCake = function(itemId) {
         // AdminFCT.deleteIcing(itemId).then(function (data) {
@@ -142,20 +168,26 @@ app.controller('AdminCakeCtrl', function ($scope, $state, AdminFCT, $stateParams
         //         if(obj._id !== itemId) return obj;
         //     });
         // });
-    }
+    };
 });
 
 var firstCap = function(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
-}
+};
 
 app.controller('AdminCateogryCtrl', function ($scope, $state, AdminFCT, $stateParams) {
+    $scope.loading = true;
     $scope.storeId = $stateParams.storeId;
     $scope.activeEditId = '';
     AdminFCT.getAllCategory($stateParams.storeId, $stateParams.category).then(function (data) {
         $scope.cateName = firstCap($stateParams.category);
-        console.log($scope.cateName);
-        $scope.itemList = data.data;
+        setTimeout(function() {
+            console.log('SCOPE LOADING',$scope.loading);
+            $scope.loading = false;
+            console.log('SCOPE LOADING',$scope.loading);
+            $scope.itemList = data.data;
+            $scope.$digest();
+        }, 8000);
     });
 
 
@@ -177,26 +209,26 @@ app.controller('AdminCateogryCtrl', function ($scope, $state, AdminFCT, $statePa
         $scope.activeEditId = '';
         $scope.item = {};
         $scope.newItem = false;
-    }
+    };
     $scope.deleteItem = function(itemId) {
         AdminFCT.deleteCategory($stateParams.storeId, $stateParams.category, itemId).then(function (data) {
             $scope.itemList = $scope.itemList.filter(function (obj) {
                 if(obj._id !== itemId) return obj;
             });
         });
-    }
+    };
 
 
 
     $scope.showEditItem = function(itemId) {
         $scope.newItem = false;
         $scope.activeEditId = itemId;
-    }
+    };
 
     $scope.removeForm = function() {
         console.log('fire');
         $scope.newItem = false;
         $scope.activeEditId = '';
 
-    }
+    };
 });
