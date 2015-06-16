@@ -28,17 +28,15 @@ app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthServ
             if(cakeObj.numOrdered === undefined) cakeObj.numOrdered = 1;
             console.log("before cakeObj.numOrdered removed", cakeObj.numOrdered)
             var numOrdered = cakeObj.numOrdered
-            delete cakeObj.numOrdered
-            console.log("after cakeObj.numOrdered removed", cakeObj.numOrdered)
-            console.log("variable stored numOrdered?", numOrdered)
-            console.log("type?", cakeObj.type)
+            delete $localStorage.cake
+            delete $localStorage.currentPrices
 
             if (AuthService.isAuthenticated()) {
                 return $http.post('/api/store/'+cakeObj.storeId+'/cake_builder', cakeObj).then(function(cake){
 
-                    console.log("cake returned after save",cake)
-                    cake.numOrdered = numOrdered
-                    StoreSingleFCT.addToCart(cake)
+                    console.log("cake returned after save",cake.data)
+                    $localStorage.lastCake = cake.data
+                    StoreSingleFCT.addToCart(cake.data)
                     return cake
 
                 });
@@ -48,8 +46,6 @@ app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthServ
                 StoreSingleFCT.addToCart(cakeObj)
 
             }
-            delete $localStorage.cake
-            delete $localStorage.currentPrices
         },
         setCakeLocal: function(cake, priceTracker){
                             for(var key in cake){
