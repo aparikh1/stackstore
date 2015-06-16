@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state, $localStorage, CartFactory) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state, $localStorage, CartFactory, CakeFactory) {
 
     $scope.login = {};
     $scope.error = null;
@@ -27,57 +27,88 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, $localStorage
         console.log("should have set checkingout to true", $scope.checkingOut)
         $scope.error = null;
 
+        var reCombinedCakes = []
+        var stockCakes = []
+        var customCakes = []
+        var thisUser 
+
         AuthService.login(loginInfo).then(function (user) {
             
 
             //IMPLEMENT THE PARSING CUSTOM CAKES AND SAVE THEM TO DATABASE
+            if($localStorage.length !== 0){
 
-            var cartParseSave = function(locCart){
-                //address quantity for stock cakes
-                //address saving custom cakes
+                var cartParseSave = function(locCart){
+                    //address quantity for stock cakes
+                    //address saving custom cakes
 
-                //parse 
-                var stockCakes = []
-                var customCakes = []
-                for(var i = 0; i<locCart.length; i++){
-                    if(!locCart[i]._id) customCakes.push(locCart[i])
-                    if(locCart[i]._id) stockCakes.push(locCart[i])
+                    //parse cakes
+                    
+                    for(var i = 0; i<locCart.length; i++){
+                        if(!locCart[i]._id) customCakes.push(locCart[i])
+                        if(locCart[i]._id) stockCakes.push(locCart[i])
+                    }
+                    console.log("locCart preparsed", locCart)
+                    console.log("custom cakes parsed", customCakes)
+                    console.log("stock cakes parsed", stockCakes)
+                    
+                    //store custom cakes
+                    // CakeFactory.storeManyCakes(customCakes).then(function(customCakes){
+                    //     console.log("customCakes returned from storeManyCakes",customCakes)
+                    //     reCombinedCakes.push(customCakes)
+                    // })
+
+
                 }
-                console.log("locCart preparsed", locCart)
-                console.log("custom cakes parsed", customCakes)
-                console.log("stock cakes parsed", stockCakes)
-                //store custom cakes
-                // for(var i = 0 ; i<customCakes; )
-                
+                cartParseSave($localStorage.cart)
 
+                //still have to do inventory recalculation
+                // var recalculateInventory = function(stockCakes){
+     
+
+                // }
+                
             }
-            cartParseSave($localStorage.cart)
-
-            return user
+            thisUser = user
+            return customCakes
         })
-        // .then(function () {
-        //     CartFactory.updateCart($localStorage.cart, user).then(function){
+        .then(function(customCakes){
+            
+            return CakeFactory.storeManyCakes(customCakes)
+        })
+        .then(function(customCakes){
+                console.log("now we're here, completed save")
+                console.log("customCakes returned from storeManyCakes",customCakes)
+                customCakes.forEach(function(cake){
+                    stockCakes.push(cake)
+                })
+                console.log("recombined Cakes (new stock array) ", stockCakes)
+                return thisUser;
+            
+        })
+        .then(function (user) {
+            console.log("thru first promise")
+            return CartFactory.updateCart(stockCakes, user)
+        })
+        .then(function(){
 
-        //     })
-        // .then(function(){
-
-        //     if($localStorage.cart.length !== 0 && $scope.checkingOut === undefined){
-        //         $state.go("storeViewProducts",{storeId : $scope.currentStore})
-        //     }
+            // if($localStorage.cart.length !== 0 && $scope.checkingOut === undefined){
+            //     $state.go("storeViewProducts",{storeId : $scope.currentStore})
+            // }
         
-        //     else if($scope.checkingOut){
+            // else if($scope.checkingOut){
                 
-        //         $state.go("cart")
-        //     }
-        //     else{
-        //         $state.go('home');
+            //     $state.go("cart")
+            // }
+            // else{
+            //     $state.go('home');
                 
-        //     }
-        //     $localStorage.cart = [];
+            // }
+            $localStorage.cart = [];
 
-        // }).catch(function () {
-        //     $scope.error = 'Invalid login credentials.';
-        // });
+        }).catch(function () {
+            $scope.error = 'Invalid login credentials.';
+        });
 
     };
 

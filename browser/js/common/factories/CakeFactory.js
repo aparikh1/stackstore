@@ -70,11 +70,13 @@ app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthServ
 
             }
         },
-        // transferCustomCakes : function(){
+        storeManyCakes: function(cakeArr){
+            console.log("storing many cakes now in CakeFactory")
+            return $http.post('/api/cake/many', cakeArr).then(function(response){
+                return response.data
+            });
 
-
-
-        // },
+        },
         setCakeLocal: function(cake, priceTracker){
                             for(var key in cake){
                                 $localStorage.cake[key] = cake[key]
@@ -86,7 +88,8 @@ app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthServ
     
                             delete cake.key
                             delete priceTracker.keyd
-        },
+        }
+        ,
         updatePrice: function(scope){
                            
                             scope.layerTwo = $localStorage.currentPrices.layerTwo
