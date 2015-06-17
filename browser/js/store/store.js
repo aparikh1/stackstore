@@ -3,29 +3,79 @@ app.config(function ($stateProvider) {
     $stateProvider.state('store', {
         url: '/store',
         templateUrl: 'js/store/store.html',
-        controller: 'StoreCtrl'
+        controller: 'StoreCtrl',
+
     });
 
     $stateProvider.state('storeViewProducts', {
         url: '/store/:storeId',
         templateUrl: 'js/store/storeSingle.html',
-        controller: 'StoreSingleCtrl'
+        controller: 'StoreSingleCtrl',
+        resolve: {
+
+            getColorScheme: function ($rootScope, $stateParams, StoreFCT) {
+                return StoreFCT.getColorScheme($stateParams.storeId).then(function (colors) {
+                    $rootScope.colorScheme = colors;
+                    return colors;
+                });
+            }
+        }
     });
 
 });
 
-app.controller('StoreSingleCtrl', function ($scope, AuthService, $state, StoreSingleFCT, $stateParams, $localStorage, CartFactory) {
 
-    StoreSingleFCT.getAll($stateParams.storeId).then(function (data) {
-    	console.log('data', data);
-        $scope.products = data.data;
-        // $scope.products = data.data.map(function (obj) {
-        //     obj.layerNum = obj.layers.length;
-        //     obj.reviewNum = obj.reviews.length;
-        //     return obj;
-        // });
+app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService, $state, StoreFCT, StoreSingleFCT, $stateParams, $localStorage, CakeFactory, getColorScheme, $modal, $log) {
+
+    $scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.animationsEnabled = true;
+
+    $scope.open = function (size) {
+
+        var modalInstance = $modal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          size: size,
+          resolve: {
+            items: function () {
+                return $scope.items;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.toggleAnimation = function () {
+        $scope.animationsEnabled = !$scope.animationsEnabled;
+    };
+
+    var stores = [];
+
+
+    CakeFactory.getAllCakes().then(function (allcakes) {
+
+        $scope.products = allcakes;
+        console.log('products', $scope.products);
+        $scope.currentProducts = $scope.products;
+        return allcakes;
+
+    }).then(function (allcakes) {
+
+        allcakes.forEach(function (cake) {
+            stores.push(cake.storeId);
+        });
+
+        $scope.stores = _.uniq(stores, 'name');
+
     });
-
+    
  
     $scope.addToCart = StoreSingleFCT.addToCart;
 
@@ -33,48 +83,47 @@ app.controller('StoreSingleCtrl', function ($scope, AuthService, $state, StoreSi
 
     $scope.currentStore = $localStorage.currentStore;
 
+    $scope.colorScheme = getColorScheme;
+
+    $scope.setStore = function (store) {
+
+        $scope.currentProducts = _.filter($scope.products, function (ele) {
+            return ele.storeId._id === store._id;
+        });
+
+    }
 
 
+});
+
+
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
 });
 
 app.controller('StoreCtrl', function ($rootScope, $scope, AuthService, $state, StoreFCT, $localStorage, CartFactory) {
 
     $localStorage.currentStore = undefined;
 
-    $scope.storeCast = function(store){
-        
-        console.log("ran a func and a ui-sref!")
-        
-        // $rootScope.$emit('storeCast', { store: store}); 
+    $scope.storeCast = function(store){        
         $localStorage.currentStore = store;
     }
 
-    StoreFCT.getAllStores().then(function (data) {
-        console.log('DATA', data.data);
-        $scope.storeArray = data.data;
+    StoreFCT.getAllStores().then(function (response) {
+        $scope.storeArray = response;
     });
-
-
-    // $scope.addToCart = function (cake) {
-    //     if (AuthService.isAuthenticated()) {
-    //         AuthService.getLoggedInUser().then(function (user) {
-    //             StoreFCT.addToAuthCart(user, cake, CartFactory);
-    //         });
-    //     } else {
-    //         StoreFCT.addToUnauthCart($localStorage, cartData, cake);
-    //     }
-    // }
-
-    // $scope.removeFromCart = function (cake) {
-    //     if (AuthService.isAuthenticated()) {
-    //         AuthService.getLoggedInUser().then(function (user) {
-    //             StoreFCT.removeFromAuthCart(user, cake, CartFactory);
-    //         });
-    //     } else {
-    //         StoreFCT.removeFromUnauthCart($localStorage, cartData, cake);
-    //     }
-    // }
-
 
 
 });

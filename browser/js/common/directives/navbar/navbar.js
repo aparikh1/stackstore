@@ -1,10 +1,48 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, StoreFCT, reviewFCT) {
+
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $localStorage, StoreFCT, reviewFCT) {
 
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
+
+            if (AuthService.isAuthenticated()) {
+                AuthService.getLoggedInUser().then(function (user) {
+                    console.log('THIS');
+                    console.log('CartFactory.getCartByUser(user)', CartFactory.getCartByUser(user));
+                    StoreFCT.addToAuthCart(user, cake, CartFactory);
+                });
+            } else {
+                $rootScope.numCartCakes = $localStorage.cart.length;
+            }
+
+            $rootScope.$watch('colorScheme', function (newValue, oldValue) {
+                scope.colorScheme = $rootScope.colorScheme;
+            });
+
+            $rootScope.$watch('numCartCakes', function (newValue, oldValue) {
+                console.log('newValue', newValue);
+                scope.numCartCakes = $rootScope.numCartCakes;
+            });
+
+            scope.items = [
+                // { label: 'Home', state: 'home' },
+                // { label: 'About', state: 'about' },
+                { label: 'Admin', state: 'adminHome({storeId : user.storeId})', adminAuth: true },
+                { label: 'Store', state: 'storeViewProducts' },
+                // { label: 'Tutorial', state: 'tutorial' },
+                // { label: 'Members Only', state: 'membersOnly', auth: true },
+                { label: 'Cart', state: 'cart'}
+            ];
+
+            // AuthService.getLoggedInUser().then(function (user) {
+            //     // console.log('USER', user);
+            //     if(user === null){
+            //         scope.items.push({ label: 'Signup', state: 'signup' });
+            //     } else {
+            //         if(!user.storeId) {
+            //             scope.items.push({ label: 'Create A Store', state: 'storeCreate', auth: true });
 
             var calculateNavBar = function () {
 
@@ -25,6 +63,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                         if(!user.storeId) {
                             scope.items.push({ label: 'Create A Store', state: 'storeCreate', auth: true });
                         }
+
                     }
                 })
                 hasPendingReviews().then(function (num) {

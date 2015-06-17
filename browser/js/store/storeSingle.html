@@ -1,33 +1,55 @@
 <h1>{{currentStore.name}}</h1>
 
-<br>
-<br>
-<h3>Custom Cakes</h3>
-<button ui-sref = "cake-builder.first({storeId: currentStore._id})">Build Your Cake</button>
-<br>
-<br>
-<h3>Stock Cakes</h3>
-<div ng-repeat="cake in products track by $index" class="storeItem">
-    {{cake}}
-    <h5>Shape: {{ cake.shape.name }}</h5>
-    <h5>Icing: {{ cake.icing.name }}</h5>
-    <h5>Layers: {{ cake.layerNum }}</h5>
-    <h5>Price: {{ cake.price }}</h5>
-    <h5>Filling: {{ cake.filling.name }}</h5>
-    <h5>Reviews: {{ cake.reviewNum }}</h5>
-    
-    
-
-    
-
-    <button ng-click="addToCart(cake)">Add to cart</button>
-        <span>How many would you like to order?</span>
-    <error-message ng-show="cake.numOrdered.$touched && cake.numOrdered.$error.required">
-        Cake numOrdered is a required field.
-    </error-message>
-    <error-message ng-show="cake.numOrdered.$error.minlength">
-        Your cake name needs to be atleast 1 character long.
-    </error-message>
-    <input ng-model="cake.numOrdered" type="text" ng-minlength="1"><br>
-    <!-- <button ng-click="removeFromCart(cake)">Remove from cart</button> -->
+<!-- <h3>Custom Cakes</h3>
+<button ui-sref = "cake-builder({storeId: currentStore._id})">Build Your Cake</button>
+ -->
+<div class="store-filters col-xs-2">
+    <div>Stores</div>
+<!--     {{ currentStore._id }} -->
+    <button ng-click="setStore(store)" class="store-buttons btn" ng-repeat="store in stores track by $index">{{ store.name }}</button>
 </div>
+
+
+<div class="grid col-xs-10 pull-right">
+    <figure ng-repeat="cake in currentProducts track by $index" ng-mouseover="showOverlay=true" ng-mouseout="showOverlay=false" class="pull-right caked-up" style="background: {{colorScheme[0]}}">
+        <img src="./images/placeholders/3.png" alt="img31"/>
+        <figcaption>
+            <h3>{{ cake.name }}<span></span></h3>
+            <p>Dope cake description.</p>
+            <!-- <a ng-click="open()"></a> -->
+
+            <div class="card-panel" ng-show="showOverlay">
+                <a ng-click="open()"><i class="fa fa-fw fa-eye"></i></a>
+                <a ng-click="addToCart(cake)"><i class="fa fa-fw fa-plus-square"></i></a>
+            </div>     
+
+        </figcaption>
+    </figure>
+</div>
+
+
+        
+
+
+
+<!-- <md-content class="md-padding">
+    <md-card class="col col-xs-3" ng-repeat="cake in products track by $index">
+
+    	{{ cake | json }}
+
+    	<img ng-src="{{cake.image[0]}}" class="md-card-image" alt="Washed Out">
+
+    	<md-card-content>
+	        <h4 class="md-title">{{ cake.name }}</h4>
+	        <p>
+	          cake description
+	        </p>
+        </md-card-content>
+
+        <div class="md-actions" layout="row" layout-align="end center">
+	        <md-button ng-click="addToCart(cake)">Add to cart</md-button>
+	        <md-button ng-click="removeFromCart(cake)">Remove from cart</md-button>
+        </div>
+
+    </md-card>
+</md-content> -->

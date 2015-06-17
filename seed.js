@@ -52,6 +52,14 @@ var seedStores = function (users) {
 			address: '1111 Wall St New York, NY 22222',
 			phone: '1234567890',
 			owner: users[randomize(users)]._id
+    },
+    {
+            name: 'TEST Store',
+            description: 'Main store description',
+            logo: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97150&w=200&h=150',
+            address: '1111 Wall St New York, NY 22222',
+            phone: '1234567890',
+            owner: users[randomize(users)]._id
     }];
 
     return q.invoke(Store, 'create', stores);
