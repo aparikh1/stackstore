@@ -88,7 +88,10 @@ router.delete('/:id', function (req, res, next) {
     Cart.findOne({ user : req.user._id }).exec().then(function (userCart) {
         
         userCart.cakes.remove(cake);
-        return userCart.save();
+        userCart.save().then(function (newCart) {
+            console.log('GOT HERE');
+            res.send(newCart);
+        });
 
     }, next);
 

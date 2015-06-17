@@ -27,7 +27,7 @@ app.factory('CartFactory', function ($http, AuthService, StoreFCT, $localStorage
         deleteFromCart: function (cake) {
             return $http.delete('/api/cart/' + cake._id).then(function(response){
                 console.log('response', response);
-                // return response;
+                return response;
             });	
         },
         calculateCart: function(cart){

@@ -37,14 +37,14 @@ var createDefaults = function(storeId) {
 		{name: 'Rectangle', description: 'Rectangle Cake Shape Description', storeId: storeId }];
 
 	var fillingArr = [
-		{name: 'Chocolate', description: 'Chocolate description', price: 20, storeId: storeId },
-		{name: 'Vanilla', description: 'Vanilla description', price: 30, storeId: storeId },
-		{name: 'Strawberry', description: 'Strawberry description', price: 40, storeId: storeId }];
+		{name: 'Chocolate Filling', description: 'Chocolate description', price: 20, storeId: storeId },
+		{name: 'Vanilla Filling', description: 'Vanilla description', price: 30, storeId: storeId },
+		{name: 'Strawberry Filling', description: 'Strawberry description', price: 40, storeId: storeId }];
 
     var icingArr = [
-    	{name: 'Chocolate', description: 'Chocolate description', price: 5, storeId: storeId },
-    	{name: 'Vanilla', description: 'Vanilla description', price: 10, storeId: storeId },
-    	{name: 'Strawberry', description: 'Strawberry description', price: 15, storeId: storeId }];
+    	{name: 'Chocolate Icing', description: 'Chocolate description', price: 5, storeId: storeId },
+    	{name: 'Vanilla Icing', description: 'Vanilla description', price: 10, storeId: storeId },
+    	{name: 'Strawberry Icing', description: 'Strawberry description', price: 15, storeId: storeId }];
 
     var seedData = function(model, array) {
     	return model.create(array);
