@@ -90,10 +90,24 @@
         </div>
     </div>
     <p>_____________________________________________________</p>
+
             <div id="status-buttons" class="text-center">
                 <a ui-sref-active="active" ui-sref="cake-builder.first"><span>1</span> Pretty Things</a>
                 <a ui-sref-active="active" ui-sref="cake-builder.second"><span>2</span> It's What's Inside</a>
                 <a ui-sref-active="active" ui-sref="cake-builder.third"><span>3</span> Make It Mine</a>
+
+            </div>
+          <div id="p1last">
+                <a href="http://localhost:1337/store/558116360978b6f684709014/cake-builder/{{linkArr[linkNum]}}">
+                <img src="/images/play_button.png" alt="Next" width="42" height="42" ng-click ="linkNum = linkNum - 1">
+                </a>
+     <!--            <img src= "http://i628.photobucket.com/albums/uu7/riobucket_album/ArrowDownGreenGloss.gif"> -->
+            </div>
+             <div id="p1next">
+                <a href="http://localhost:1337/store/558116360978b6f684709014/cake-builder/{{linkArr[linkNum]}}">
+                <img src="https://www.movenote.com/images/play_button.png" alt="Next" width="42" height="42" ng-click ="linkNum = linkNum + 1">
+                </a>
+     <!--            <img src= "http://i628.photobucket.com/albums/uu7/riobucket_album/ArrowDownGreenGloss.gif"> -->
             </div>
 </div>
 </div>

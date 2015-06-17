@@ -47,6 +47,16 @@ canvas{
 
 }
 
+#p1next{
+	display: inline-block;
+	margin-left: 50px;
+}
+
+#p1last{
+	display: inline-block;
+	margin-right: 50px;
+}
+
 #cakeObjImg{
 
 	display: block;
@@ -59,6 +69,7 @@ canvas{
 	border: 3px solid red;
 
 	
+
 	#roundCake{
 
 		#bottom{

@@ -167,6 +167,12 @@ app.factory('CakeFactory', function ($http, $localStorage, AuthService, $state, 
 
                     scope.colors = [{color: null},{color: null},{color: null}]
 
+                    // scope.backLink = "first"
+                    // scope.forwardLink = "second"
+                    scope.linkArr = ["first", "second", "third"]
+                    scope.linkNum = 0
+
+
 
 
                     //for selecting the property to update w update function
