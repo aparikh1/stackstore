@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('SignUpCtrl', function ($scope, AuthService, $state, $localStorage, CartFactory) {
+app.controller('SignUpCtrl', function ($scope, AuthService, $state, OrderFactory, $localStorage, CartFactory) {
 
     $scope.login = {};
     $scope.error = null;
@@ -21,10 +21,14 @@ app.controller('SignUpCtrl', function ($scope, AuthService, $state, $localStorag
         $scope.error = null;
         
         AuthService.signup(signupInfo).then(function (user) {
-            if($localStorage.cart === undefined) $localStorage.cart = []
-                return CartFactory.createNewCart($localStorage.cart, user)
+        if($localStorage.cart === undefined) $localStorage.cart = []
+                return OrderFactory.parseAndCreateCart($localStorage.cart, user)
         }).then(function () {
             $localStorage.cart = [];
+
+            if($scope.checkingOut === true){
+                $state.go('cart')
+            }
 
             $state.go('store');
 
