@@ -11,7 +11,7 @@
 	<hr>
 </div>
 
-<h2 ng-show = "cart.length === 0 || currentStore === undefined">Your Cart is Empty.  We recommend the cake!</h2><br>
+<h2 ng-show = "cart.length === 0 ">Your Cart is Empty.  We recommend the cake!</h2><br>
 
 <hr>
 
@@ -20,5 +20,4 @@
 <button ng-show = "currentStore !== undefined" ui-sref="storeViewProducts({storeId: currentStore._id})">Continue Shopping</button>
 <button ng-show = "currentStore === undefined" ui-sref="store">Continue Shopping</button>  
 <button ng-click="">Edit Cart</button>
-<button ng-click="checkout(cart)">Checkout</button>
-<button ng-click="calculateOrders(cart)">Calculate</button>
+<button ng-click="checkout(cart)" ng-click="checkingOut = true">Checkout</button>

@@ -13,6 +13,9 @@ app.controller('SignUpCtrl', function ($scope, AuthService, $state, $localStorag
     $scope.login = {};
     $scope.error = null;
 
+    $scope.checkingOut = $localStorage.checkingOut
+    console.log("local storage currentstore",$localStorage.currentStore)
+
     $scope.sendLogin = function (signupInfo) {
 
         $scope.error = null;
@@ -22,7 +25,9 @@ app.controller('SignUpCtrl', function ($scope, AuthService, $state, $localStorag
                 return CartFactory.createNewCart($localStorage.cart, user)
         }).then(function () {
             $localStorage.cart = [];
+
             $state.go('store');
+
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
         });

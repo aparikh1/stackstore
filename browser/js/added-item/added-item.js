@@ -9,6 +9,7 @@ app.config(function ($stateProvider) {
 
 app.controller('AddedItemCtrl', function ($rootScope, $scope, AuthService, $state, CakeFactory, $localStorage, StoreFCT, CartFactory) {
 
+    
     if (AuthService.isAuthenticated()) {
     	$scope.lastCake = $localStorage.lastCake
     	delete $localStorage.lastCake
@@ -18,5 +19,6 @@ app.controller('AddedItemCtrl', function ($rootScope, $scope, AuthService, $stat
 	
 	// $scope.lastCake = $localStorage.cart[$localStorage.cart.length-1];
 	$scope.currentStore = $localStorage.currentStore;
+    $scope.checkingOut = $localStorage.checkingOut;
 
 });

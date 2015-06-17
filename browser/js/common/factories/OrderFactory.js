@@ -81,7 +81,7 @@ app.factory('OrderFactory', function ($http, StoreFCT, AuthService, $localStorag
                 return cart
 
             }).catch(function () {
-                $scope.error = 'Invalid login credentials.';
+                scope.error = 'Invalid login credentials.';
             });
         },
         parseAndUpdateCart: function(scope, user){

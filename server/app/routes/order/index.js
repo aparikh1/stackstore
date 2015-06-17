@@ -16,8 +16,6 @@ router.post('/', function (req, res, next) {
 
 	console.log('ARRAY', req.body.orderArray);
 
-	req.body.orderArray.forEach(function (orderObj) {
-
 		var newOrder = new Order({
 			customer: req.user._id,
 			storeId: orderObj.storeId,

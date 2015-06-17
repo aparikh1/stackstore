@@ -8,7 +8,7 @@ var schema = new mongoose.Schema({
 		required: true
 	},
 
-    productId: { type: String},
+    productId: { type: String },
 
     category: { type: String},
 

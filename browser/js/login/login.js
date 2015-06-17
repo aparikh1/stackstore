@@ -12,6 +12,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, $localStorage
 
     $scope.login = {};
     $scope.error = null;
+    $scope.checkingOut = $localStorage.checkingOut
 
     $scope.sendLogin = function (loginInfo) {
         $scope.error = null;
@@ -80,7 +81,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, $localStorage
             }
             if(thisUser.admin) $state.go('adminHome', {storeId: thisUser.storeId});
             else $state.go('store');
-        }).catch(function () {
+        }).then(null, function () {
             $scope.error = 'Invalid login credentials.';
         });
 

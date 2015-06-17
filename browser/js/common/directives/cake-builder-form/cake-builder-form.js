@@ -48,6 +48,7 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                             scope.cake[propName] = propObj._id
                             
                             scope.currentPrices[propName] = propObj
+                            console.log("scope.currentPrices",scope.currentPrices)
                             
                         }
 
@@ -56,6 +57,10 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                             scope.cake[propName][layerNum-1]['filling'] = propObj._id
                            
                             scope.currentPrices[propName][layerNum-1]['filling'] = propObj
+
+                            scope.colors[layerNum-1].color = propObj.color
+
+                            console.log("colors", scope.colors[0], scope.colors[1],scope.colors[2])
                           
                         }
 

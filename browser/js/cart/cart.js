@@ -57,6 +57,7 @@ app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, 
         return cake;
     });
     $scope.localCart = $localStorage.cart
+    $scope.checkingOut = $localStorage.checkingOut
     console.log('scope.cart', $scope.cart);
     $scope.price = CartFactory.calculateCart($scope.cart);
     $scope.currentStore = $localStorage.currentStore;

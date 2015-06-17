@@ -134,6 +134,7 @@ var seedFilling = function (stores) {
     }, {
         name: 'strawberry',
         description: 'strawberry description',
+        color: '#ff69b4',
         price: 40,
         storeId: stores[randomize(stores)]._id
     }];
@@ -162,6 +163,7 @@ var seedIcing = function (stores) {
     }, {
         name: 'strawberry',
         description: 'strawberry description',
+        color: '#ff69b4',
         price: 15,
         storeId: stores[randomize(stores)]._id
     }];
