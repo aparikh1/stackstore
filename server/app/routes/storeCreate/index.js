@@ -12,13 +12,14 @@ var FillingModel = mongoose.model('Filling');
 
 router.post('/store', function (req, res, next) {
 	var d = req.body;
+    console.log("req body create store", d)
     var store = new StoreModel();
     store.name = d.name;
     store.description = d.description;
     store.owner = req.user._id;
     //ADD MORE FOR ALL OTHER DATA POINTS
     store.save(function (err, store) {
-    	UserModel.findByIdAndUpdate(req.user._id, {$set: {storeId: store._id, admin: true}})
+    	UserModel.findByIdAndUpdate(req.user._id, {$set: {storeId: store._id, admin: true, adminOwner: true}})
     		.exec().then(function (user) {
 
 	    	createDefaults(store._id).then(function (data){

@@ -20,10 +20,20 @@ router.get('/:id', function (req, res, next) {
 
 router.post('/add', function (req, res, next) {
 
-    var user = req.body.user.data.user._id;
-    var cart = req.body.cart.map(function (cake) {
-        return cake._id
-    });
+    if(req.body.user._id !== undefined){
+        var user = req.body.user._id
+        var cart = req.body.cart.map(function (cake) {
+            return cake._id
+        });
+    }    
+    else {
+        var user = req.body.user.data.user._id;
+        var cart = req.body.cart.map(function (cake) {
+            return cake._id
+        });
+    }
+    console.log("adding cart backend: user", user)
+    console.log("adding cart backend: cart", cart)
 
     var newUserCart = new Cart({ user : user, cakes : cart });
 
@@ -61,7 +71,12 @@ router.put('/update', function (req, res, next) {
         return userCart.save();
         
 
-    }, next);
+    }, next)
+    .then(function(cart){
+        res.send(cart)
+    })
+
+
 
 });
 

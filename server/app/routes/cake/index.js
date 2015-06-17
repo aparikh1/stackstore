@@ -17,6 +17,7 @@ router.get('/:cakeid', function (req, res, next) {
 });
 
 
+
 router.get('/', function (req, res, next) {
     
     Cake.find().populate('storeId').exec().then(function (allcakes) {
@@ -24,3 +25,34 @@ router.get('/', function (req, res, next) {
     });
 
 });
+
+
+router.post('/many', function (req, res, next){
+
+	console.log("hit store many cakes post route")
+
+	var cakes = req.body
+	console.log(cakes)
+
+
+	var storeCake = function(cakeArr){
+		var cakePromises = [];
+
+		cakeArr.forEach(function(cake){
+			cakePromises.push(Cake.create(cake))
+		})
+
+		console.log(cakePromises)
+		
+		return cakePromises
+	}
+	
+	Promise.all(storeCake(cakes))
+    .then(function(cakes){
+
+    	console.log("custom cakes stored in database", cakes)
+    	res.send(cakes)
+
+    })
+
+})

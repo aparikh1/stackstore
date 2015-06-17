@@ -23,6 +23,25 @@
 		</select>
 	</div>
 
+	<div class="form-group">
+		<label for="layers"> Layers</label>
+		<select name="icing" ng-model="cake.layers" ng-change="changeLayerNum(cake.layers)" class="form-control">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+	</div>
+		
+	<div ng-repeat="layer in cake.layers" class="form-group" ng-hide="layer.filling === undefined">
+		{{layer}}
+		{{layer.keys}}
+		{{layer}}
+		<label for="filling"> Layer Fillings</label>
+		<select name="filling" ng-model="cake.filling" class="form-control">
+			<option ng-repeat="filling in fillingList" value="{{filling._id}}">{{filling.name}}</option>
+		</select>
+	</div>
+
 	<div class="form-group" ng-show="cateName !== 'Shape'">
 		<label for="price"> Price</label>
 		<input type="number" name="price" ng-model="cake.price" class="form-control" placeholder=" Price" value="{{ cake.price }}" ng-required="cateName !== 'Shape'">

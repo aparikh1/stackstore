@@ -24,6 +24,7 @@ app.config(function ($stateProvider) {
 
 });
 
+
 app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService, $state, StoreFCT, StoreSingleFCT, $stateParams, $localStorage, CakeFactory, getColorScheme, $modal, $log) {
 
     $scope.items = ['item1', 'item2', 'item3'];
@@ -57,6 +58,7 @@ app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService,
 
     var stores = [];
 
+
     CakeFactory.getAllCakes().then(function (allcakes) {
 
         $scope.products = allcakes;
@@ -84,9 +86,8 @@ app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService,
     $scope.colorScheme = getColorScheme;
 
     $scope.setStore = function (store) {
-        console.log('store', store);
-        console.log('sdfsdtest');
 
+        console.log('store', store);
         console.log('Products', $scope.products);
 
         $scope.currentProducts = _.filter($scope.products, function (ele) {
@@ -101,13 +102,6 @@ app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService,
 
 });
 
-app.filter('storeName', function () {
-  return function (stores, allStores) {
-    console.log('stores', stores);
-    console.log('stores', storeId);
-
-  };
-});
 
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
@@ -127,7 +121,7 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
 app.controller('StoreCtrl', function ($rootScope, $scope, AuthService, $state, StoreFCT, $localStorage, CartFactory) {
 
-    $rootScope.currentStore = undefined;
+    $localStorage.currentStore = undefined;
 
     $scope.storeCast = function(store){        
         $localStorage.currentStore = store;

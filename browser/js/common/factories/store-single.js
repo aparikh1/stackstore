@@ -8,20 +8,26 @@ app.factory('StoreSingleFCT', function ($http, $state, $rootScope, AuthService, 
 
 
     var addToCart = function (cake) {
+    
+        console.log('$localStorage', $localStorage);
+
         if (AuthService.isAuthenticated()) {
             AuthService.getLoggedInUser().then(function (user) {
+                
+                StoreFCT.addToAuthCart(user, cake, CartFactory);
  
                 CartFactory.getCartByUser(user).then(function (cart) {
                     $rootScope.numCartCakes = cart.cakes.length;
+                    $rootScope.$broadcast( "numCartCakes", cart.cakes.length );
                 });
                 
-                StoreFCT.addToAuthCart(user, cake, CartFactory);
-                $rootScope.$broadcast( "numCartCakes", $localStorage.cart.length );
+                $localStorage.lastCake = cake;
             });
         } else {
             var cartData = [];
-            $rootScope.numCartCakes = $localStorage.cart.length;
             StoreFCT.addToUnauthCart($localStorage, cartData, cake);
+            $rootScope.$broadcast( "numCartCakes", $localStorage.cart.length );
+            $rootScope.numCartCakes = $localStorage.cart.length;
         }
         $state.go("added-item")
     };
@@ -33,7 +39,7 @@ app.factory('StoreSingleFCT', function ($http, $state, $rootScope, AuthService, 
                 StoreFCT.removeFromAuthCart(user, cake, CartFactory);
             });
         } else {
-            var cartData = []
+            var cartData = [];
             StoreFCT.removeFromUnauthCart($localStorage, cartData, cake);
         }
     };

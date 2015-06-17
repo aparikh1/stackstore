@@ -15,6 +15,8 @@ var schema = new mongoose.Schema({
 	},
 	quantity: { type: Number, default: 1 },
 
+	numOrdered: { type: Number, default: 1},
+
 	images: {
 		type: [String],
 		default: [
@@ -60,7 +62,7 @@ var cakeTypes = {
 schema.plugin(deepPopulate, {
 	populate: {
 	    'layers.filling': {
-	      select: 'name'
+	      select: '_id name storeId'
 	    }
 	}
 });

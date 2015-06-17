@@ -1,8 +1,9 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $localStorage) {
+
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $localStorage, StoreFCT, reviewFCT) {
 
     return {
         restrict: 'E',
-        scope: { walks: '=walkmap' },
+        scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
 
@@ -35,17 +36,37 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                 { label: 'Cart', state: 'cart'}
             ];
 
-            AuthService.getLoggedInUser().then(function (user) {
-                // console.log('USER', user);
-                if(user === null){
-                    scope.items.push({ label: 'Signup', state: 'signup' });
-                } else {
-                    if(!user.storeId) {
-                        scope.items.push({ label: 'Create A Store', state: 'storeCreate', auth: true });
-                    }
-                }
-            });
+            // AuthService.getLoggedInUser().then(function (user) {
+            //     // console.log('USER', user);
+            //     if(user === null){
+            //         scope.items.push({ label: 'Signup', state: 'signup' });
+            //     } else {
+            //         if(!user.storeId) {
+            //             scope.items.push({ label: 'Create A Store', state: 'storeCreate', auth: true });
 
+            var calculateNavBar = function () {
+                AuthService.getLoggedInUser().then(function (user) {
+                    scope.items = [
+                        { label: 'Admin', state: 'adminHome({storeId : user.storeId})', adminAuth: true },
+                        { label: 'Store', state: 'store' },
+                        { label: 'Cart', state: 'cart'}
+                    ];
+                    // consolnode se.log('HERE');
+                    if(user === null){
+                        scope.items.push({ label: 'Signup', state: 'signup' });
+                    } else {
+                        console.log('USER', user);
+                        if(hasPendingReviews()) {
+                            scope.items.push({ label: 'Review Products', state: 'reviewProduct', auth: true });
+                        }
+                        if(!user.storeId) {
+                            scope.items.push({ label: 'Create A Store', state: 'storeCreate', auth: true });
+                        }
+
+                    }
+                });
+            }
+            calculateNavBar();
 
             scope.user = null;
 
@@ -66,8 +87,21 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
             var setUser = function () {
                 AuthService.getLoggedInUser().then(function (user) {
                     scope.user = user;
+                    if(AuthService.isAdminAuthenticated()) {
+                        // console.log('sTORE ID', user.storeId);
+                        $state.go('adminHome', {storeId : user.storeId});
+                    }
+                    else {
+                        $state.go('home');
+                    }
                 });
             };
+
+            var hasPendingReviews = function () {
+                reviewFCT.getUnwrittenReviews().then(function (data) {
+                    return data.data.length;
+                });
+            }
 
             var removeUser = function () {
                 scope.user = null;
@@ -75,9 +109,13 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
 
             setUser();
 
+            $rootScope.$on(AUTH_EVENTS.loginSuccess, calculateNavBar);
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
+            $rootScope.$on(AUTH_EVENTS.logoutSuccess, calculateNavBar);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
+            $rootScope.$on(AUTH_EVENTS.sessionTimeout, calculateNavBar);
+            $rootScope.$on(StoreFCT.saveStore, calculateNavBar);
 
         }
 
