@@ -15,11 +15,11 @@ var schema = new mongoose.Schema({
 	},
 	quantity: { type: Number, default: 1 },
 
-	image: {
+	images: {
 		type: [String],
 		default: [
-			'https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97150&w=200&h=150',
-			'https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97150&w=200&h=150'
+			'http://www.craftsy.com/blog/wp-content/uploads/2013/09/birdseyeview_cake.jpg',
+			'http://www.craftsy.com/blog/wp-content/uploads/2013/09/birdseyeview_cake.jpg'
 		]
 	},
 

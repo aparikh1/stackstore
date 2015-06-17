@@ -1,18 +1,30 @@
 <nav class="navbar navbar-static-top">
     <div class="container">
         <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
         </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.adminAuth || isAdmin()">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+
+        <ul class="navbar-nav">
+            <li id="{{$index}}nav" class="store-test" ng-repeat="item in items track by $index" ng-show="!item.adminAuth || isAdmin()">
+                <a style="color: {{ colorScheme[0] }}" class="hvr-underline-from-center" ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+            </li>
+
+            <li style="color: {{ colorScheme[0] }}"ng-show="!user" href="" ui-sref="login" class="hvr-underline-from-center pull-right login-button">Login</li>
+
+            <li style="color: {{ colorScheme[0] }}"ng-show="user" href="" ng-click="logout()" class="hvr-underline-from-center pull-right login-button">Logout</li>            
+
+            <li class="cart-icon" >
+                <a href="http://google.com">
+                    <i style="color: {{ colorScheme[0] }}" class="fa fa-fw fa-shopping-cart">
+                        <div class="num-cart">{{ numCartCakes }}</div>
+                    </i>
+                </a>
             </li>
         </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <button ui-sref="cart" class="btn">Cart</button>
-        <div ng-show="user" class="welcome">
+
+        
+<!--         <div ng-show="user" class="welcome">
             <span>Welcome, {{ user.email }}!</span>
             <a ng-click="logout()">Logout</a>
-        </div>
+        </div> -->
     </div>
 </nav>

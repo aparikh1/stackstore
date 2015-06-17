@@ -2,6 +2,12 @@ app.factory('CakeFactory', function ($http, $localStorage, CartFactory, AuthServ
 
     return {
 
+        getAllCakes: function () {
+            return $http.get('/api/cake').then(function(response){
+                return response.data;
+            });
+        },
+
     	getCakes: function (cakeid) {
     		if (cakeid) {
     			return $http.get('/api/cake/' + cakeid).then(function(response){

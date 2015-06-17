@@ -1,11 +1,17 @@
 app.factory('StoreFCT', function ($http) {
 
-    var getOne = function(cakeId) {
-        return $http.get('/api/store/'+cakeId, function (data) {
-            console.log('SINGLE DATA', data);
-            return data;
+    var getOne = function (cakeId) {
+        return $http.get('/api/store/' + cakeId, function (response) {
+            return response;
         });
     };
+
+    var getColorScheme = function (store) {
+        return $http.get('/api/store/colors/' + store).then(function(response){
+            return response.data;
+        });
+    };
+
     
     var addToAuthCart = function (user, cake, CartFactory) {
         
@@ -48,14 +54,15 @@ app.factory('StoreFCT', function ($http) {
     }
 
     var getAllStores = function() {
-        return $http.get('/api/store', function (data) {
-            return data;
+        return $http.get('/api/store').then(function(response){
+            return response.data;
         });
     }
 
     return {
 
         getOne: getOne,
+        getColorScheme: getColorScheme,
         addToAuthCart: addToAuthCart,
         addToUnauthCart: addToUnauthCart,
         removeFromAuthCart: removeFromAuthCart,
