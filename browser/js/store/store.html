@@ -1,5 +1,7 @@
 <h1>STORES</h1>
 
+<div ui-view></div>
+
 <div ng-repeat="store in storeArray" class="storeItem" style="background:url({{store.thumbnail}});margin-right:20px;">
     <h1>{{ store.name }}</h1>
     <p>{{store.description }}</p>

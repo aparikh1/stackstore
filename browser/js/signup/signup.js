@@ -22,7 +22,7 @@ app.controller('SignUpCtrl', function ($scope, AuthService, $state, $localStorag
                 return CartFactory.createNewCart($localStorage.cart, user)
         }).then(function () {
             $localStorage.cart = [];
-            $state.go('home');
+            $state.go('store');
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
         });

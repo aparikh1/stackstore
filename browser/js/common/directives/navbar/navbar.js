@@ -76,7 +76,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
 
             scope.logout = function () {
                 AuthService.logout().then(function () {
-                   $state.go('home');
+                   $state.go('store');
                 });
             };
 
@@ -92,7 +92,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                         $state.go('adminHome', {storeId : user.storeId});
                     }
                     else {
-                        $state.go('home');
+                        $state.go('store');
                     }
                 });
             };

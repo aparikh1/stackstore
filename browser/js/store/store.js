@@ -87,15 +87,9 @@ app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService,
 
     $scope.setStore = function (store) {
 
-        console.log('store', store);
-        console.log('Products', $scope.products);
-
         $scope.currentProducts = _.filter($scope.products, function (ele) {
-            console.log('elem', ele);
             return ele.storeId._id === store._id;
         });
-
-        console.log('currentProducts', $scope.currentProducts);
 
     }
 
@@ -127,8 +121,8 @@ app.controller('StoreCtrl', function ($rootScope, $scope, AuthService, $state, S
         $localStorage.currentStore = store;
     }
 
-    StoreFCT.getAllStores().then(function (data) {
-        $scope.storeArray = data.data;
+    StoreFCT.getAllStores().then(function (response) {
+        $scope.storeArray = response;
     });
 
 

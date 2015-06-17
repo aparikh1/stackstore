@@ -33,7 +33,6 @@ router.get('/:storeId', function (req, res, next) {
             .populate('filling','name description price')
             .populate('reviews').exec()
             .then(function (cakesArr){
-                console.log('CAKES ARR', cakesArr);
                 res.send(cakesArr);
             });
     });

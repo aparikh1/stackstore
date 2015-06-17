@@ -56,7 +56,7 @@ app.factory('StoreFCT', function ($http) {
     }
 
     var getAllStores = function() {
-        return $http.get('/api/store').then(function(response){
+        return $http.get('/api/store/').then(function(response) {
             return response.data;
         });
     }
