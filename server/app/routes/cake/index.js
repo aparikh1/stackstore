@@ -5,7 +5,6 @@ var _ = require('lodash');
 var body = require('body-parser');
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
-
 var Cake = mongoose.model('Cake');
 
 router.get('/:cakeid', function (req, res, next) {
@@ -16,6 +15,17 @@ router.get('/:cakeid', function (req, res, next) {
 	});
 
 });
+
+
+
+router.get('/', function (req, res, next) {
+    
+    Cake.find().populate('storeId').exec().then(function (allcakes) {
+        res.send(allcakes);
+    });
+
+});
+
 
 router.post('/many', function (req, res, next){
 
@@ -44,6 +54,5 @@ router.post('/many', function (req, res, next){
     	res.send(cakes)
 
     })
-	
 
 })

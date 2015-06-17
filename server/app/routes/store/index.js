@@ -33,22 +33,16 @@ router.get('/:storeId', function (req, res, next) {
             .populate('filling','name description price')
             .populate('reviews').exec()
             .then(function (cakesArr){
-                console.log('CAKES ARR', cakesArr);
                 res.send(cakesArr);
             });
     });
-    // var id = req.params.storeId;
-    // CakeModel.findOne({_id: id}, function (err, cake) {
-    //     if(err) next(err);
-    //     console.log('THE CAKE', cake);
-    //     res.send(cake);
-    // });
-    // CakeModel.findOne({_id: id}).exec()
-    //     .then(function (err, cake) {
-    //         if(err) next(err);
-    //         console.log('THE CAKE', cake);
-    //         res.send(cake);
-    //     });
+});
+
+
+router.get('/colors/:storeId', function (req, res, next) {
+    StoreModel.findById(req.params.storeId).exec().then(function (store) {
+        res.send(store.colorScheme);
+    });
 });
 
 

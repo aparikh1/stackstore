@@ -38,7 +38,7 @@ router.post('/add', function (req, res, next) {
     var newUserCart = new Cart({ user : user, cakes : cart });
 
     newUserCart.save(function (err) {
-        if(err) next(err);
+        if(err) return next(err);
         res.send("doneski");
     });
 

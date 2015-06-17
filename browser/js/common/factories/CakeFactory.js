@@ -2,6 +2,12 @@ app.factory('CakeFactory', function ($http, $localStorage, AuthService, $state, 
 
     return {
 
+        getAllCakes: function () {
+            return $http.get('/api/cake').then(function(response){
+                return response.data;
+            });
+        },
+
     	getUserInfo: function (scope) {
             if (AuthService.isAuthenticated()) {
                 AuthService.getLoggedInUser().then(function (user) {
@@ -13,6 +19,7 @@ app.factory('CakeFactory', function ($http, $localStorage, AuthService, $state, 
         },
 
         getCakes: function (cakeid) {
+
     		if (cakeid) {
     			return $http.get('/api/cake/' + cakeid).then(function(response){
 	            	console.log('response.data', response.data);

@@ -1,8 +1,33 @@
 <h1>STORES</h1>
 
+<div ui-view></div>
+
 <div ng-repeat="store in storeArray" class="storeItem" style="background:url({{store.thumbnail}});margin-right:20px;">
     <h1>{{ store.name }}</h1>
     <p>{{store.description }}</p>
     <h5>Reviews: {{ store.reviewNum }}</h5>
     <button ng-click = "storeCast(store)" ui-sref="storeViewProducts({storeId: store._id})">View Products</button>
 </div>
+
+
+<md-content class="md-padding">
+    <md-card ng-repeat="cake in products track by $index">
+
+    	<!-- {{ cake | json }} -->
+
+    	<img ng-src="{{cake.image[0]}}" class="md-card-image" alt="Washed Out">
+
+    	<md-card-content>
+	        <h2 class="md-title">{{ cake.name }}</h2>
+	        <p>
+	          cake description
+	        </p>
+        </md-card-content>
+
+        <div class="md-actions" layout="row" layout-align="end center">
+	        <md-button ng-click="addToCart(cake)">Add to cart</md-button>
+	        <md-button ng-click="removeFromCart(cake)">Remove from cart</md-button>
+        </div>
+
+    </md-card>
+</md-content>
