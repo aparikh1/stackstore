@@ -25,10 +25,16 @@ router.post('/', function (req, res, next) {
 	newOrder.save(function (err) {
 		if (err) return next(err);
 		Cart.findOne({ userId: req.user.userId }).exec().then(function(cart){
-			cart.remove().then(function(){
-				res.send("cart deleted after checkout")
-			})
+			return cart.remove()
+		}).then(function(){
+				return Cart.create({user: req.user._id})
+		}).then(function(cart){
+					console.log("cart was created in order index.js")
+					res.send("cart deleted after checkout")
+				}, function(err){
+					console.log("orders index.js line 32 error!", err)
 		})
+
 	})
 
 
