@@ -1,14 +1,14 @@
 app.factory('OrderFactory', function ($http, StoreFCT, AuthService, $localStorage, CartFactory, CakeFactory) {
 
    return {
-       createNewOrder: function (store, cakes, total) {
-           return $http.post('/api/order/', { store : store, cakes : cakes, total : total }, function (response) {
+       createNewOrder: function (orderArray) {
+           return $http.post('/api/order/', { orderArray : orderArray }, function (response) {
                 console.log('response', response);
                 return response.data; 
            });
        },
        completeOrder: function (orderId, storeId) {
-          return $http.put('/api/store/'+storeId+'/order/'+orderId+'/complete', {status: 'Complete'}, function (data) {
+          return $http.put('/api/store/'+storeId+'/admin/order/'+orderId+'/complete', {status: 'Complete'}, function (data) {
             return data.data;
           });
        },
@@ -33,16 +33,6 @@ app.factory('OrderFactory', function ($http, StoreFCT, AuthService, $localStorag
                         if(!locCart[i]._id) customCakes.push(locCart[i])
                         if(locCart[i]._id) stockCakes.push(locCart[i])
                     }
-                    console.log("locCart preparsed", locCart)
-                    console.log("custom cakes parsed", customCakes)
-                    console.log("stock cakes parsed", stockCakes)
-                    
-                    //store custom cakes
-                    // CakeFactory.storeManyCakes(customCakes).then(function(customCakes){
-                    //     console.log("customCakes returned from storeManyCakes",customCakes)
-                    //     reCombinedCakes.push(customCakes)
-                    // })
-
 
                 }
                 cartParseSave($localStorage.cart)

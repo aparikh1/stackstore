@@ -48,13 +48,9 @@ app.config(function ($stateProvider) {
 app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, $localStorage, CartFactory, OrderFactory, getCartOfCakes, AuthService, isAuthenticated) {
 
     $scope.cart = getCartOfCakes;
-
     $scope.localCart = $localStorage.cart
-
     console.log('scope.cart', $scope.cart);
-
     $scope.price = CartFactory.calculateCart($scope.cart);
-
     $scope.currentStore = $localStorage.currentStore;
 
     $scope.checkout = function (cart) {
@@ -64,25 +60,16 @@ app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, 
         }
 
         var store = cart[0].storeId;
-
-        var cakes = cart.map(function (cake) {
-            return cake._id;
-        });
-
-        console.log("arrayed cakes", cakes)
-        console.log("authenticated?", AuthService.isAuthenticated() )
-
         if (AuthService.isAuthenticated()) {
-            OrderFactory.createNewOrder(store, cakes, $scope.price).then(function(order){
-                console.log(order)
-                delete $scope.cart
-            // $state.go()
-            })
+
+
+            OrderFactory.createNewOrder(calculateOrders($scope.cart)).then(function (order) {
+                console.log('order', order);
+            });
     	}
-    	
     };
 
-    $scope.calculateOrders = function (cakeArray) {
+    var calculateOrders = function (cakeArray) {
         var retArr = [];
         var orderObj = function(storeId) {
             this.storeId = storeId;
@@ -90,8 +77,9 @@ app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, 
             this.total = 0;
         }
         cakeArray.forEach(function (cake) {
+            console.log('CAKE', cake);
             if(!retArr.length) {
-                retArr.push(new orderObj(cake.storeId.toString()));
+                retArr.push(new orderObj(cake.storeId));
                 retArr[0].cakes.push(cake._id);
                 retArr[0].total += cake.price;
             }
@@ -99,7 +87,7 @@ app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, 
                 var exists = false;
                 var index = null;
                 for(var i=0; i < retArr.length;i++) {
-                    if(retArr[i].storeId === cake.storeId.toString()) {
+                    if(retArr[i].storeId === cake.storeId) {
                         exists = true;
                         retArr[i].cakes.push(cake._id);
                         retArr[i].total += cake.price;
@@ -112,7 +100,7 @@ app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, 
                 }
             }
         });
-        console.log('ORDER ARRAY', retArr);
+        return retArr;
     }
 
 

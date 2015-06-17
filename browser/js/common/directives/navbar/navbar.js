@@ -7,23 +7,31 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
         link: function (scope) {
 
             var calculateNavBar = function () {
+
+                var hasPendingReviews = function () {
+                    return reviewFCT.getUnwrittenReviews().then(function (num) {
+                        return num;
+                    });
+                }
                 AuthService.getLoggedInUser().then(function (user) {
                     scope.items = [
                         { label: 'Admin', state: 'adminHome({storeId : user.storeId})', adminAuth: true },
                         { label: 'Store', state: 'store' },
                         { label: 'Cart', state: 'cart'}
                     ];
-                    // consolnode se.log('HERE');
                     if(user === null){
                         scope.items.push({ label: 'Signup', state: 'signup' });
                     } else {
-                        console.log('USER', user);
-                        if(hasPendingReviews()) {
-                            scope.items.push({ label: 'Review Products', state: 'reviewProduct', auth: true });
-                        }
                         if(!user.storeId) {
                             scope.items.push({ label: 'Create A Store', state: 'storeCreate', auth: true });
                         }
+                    }
+                })
+                hasPendingReviews().then(function (num) {
+                    // console.log('ASDFHASKDFA',num);
+                    if(num.length > 0) {
+                        scope.items.push({ label: 'Review Products', state: 'reviewList', auth: true });
+                        // console.log('INDEX OF', scope.items);
                     }
                 });
             }
@@ -49,7 +57,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                 AuthService.getLoggedInUser().then(function (user) {
                     scope.user = user;
                     if(AuthService.isAdminAuthenticated()) {
-                        // console.log('sTORE ID', user.storeId);
                         $state.go('adminHome', {storeId : user.storeId});
                     }
                     else {
@@ -58,25 +65,21 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                 });
             };
 
-            var hasPendingReviews = function () {
-                reviewFCT.getUnwrittenReviews().then(function (data) {
-                    return data.data.length;
-                });
-            }
-
             var removeUser = function () {
                 scope.user = null;
             };
 
             setUser();
 
-            $rootScope.$on(AUTH_EVENTS.loginSuccess, calculateNavBar);
+            // $rootScope.$on(AUTH_EVENTS.loginSuccess, calculateNavBar);
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, calculateNavBar);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, calculateNavBar);
             $rootScope.$on(StoreFCT.saveStore, calculateNavBar);
+            $rootScope.$on(reviewFCT.saveReview, calculateNavBar);
+
 
         }
 
