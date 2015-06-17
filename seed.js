@@ -33,7 +33,7 @@ var chalk = require('chalk');
 
 
 var randomize = function (arr) {
-	return Math.floor(Math.random() * arr.length);
+    return Math.floor(Math.random() * arr.length);
 }
 
 
@@ -47,11 +47,11 @@ var seedStores = function (users) {
 
     var stores = [{
             name: 'Main Store',
-			description: 'Main store description',
-			logo: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97150&w=200&h=150',
-			address: '1111 Wall St New York, NY 22222',
-			phone: '1234567890',
-			owner: users[randomize(users)]._id
+            description: 'Main store description',
+            logo: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97150&w=200&h=150',
+            address: '1111 Wall St New York, NY 22222',
+            phone: '1234567890',
+            owner: users[randomize(users)]._id
     },
     {
             name: 'TEST Store',
@@ -216,21 +216,21 @@ var seedCakes = function (shapes, icings, fillings, reviews, stores) {
             shape: shapes[randomize(shapes)]._id,
             icing: icings[randomize(icings)]._id,
             layers: [{
-			        position: 1,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 2,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 3,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 4,
-			        filling: fillings[randomize(fillings)]._id
-		    }],
+                    position: 1,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 2,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 3,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 4,
+                    filling: fillings[randomize(fillings)]._id
+            }],
             reviews: reviews[randomize(reviews)]._id
         },
         {
@@ -241,17 +241,17 @@ var seedCakes = function (shapes, icings, fillings, reviews, stores) {
             shape: shapes[randomize(shapes)]._id,
             icing: icings[randomize(icings)]._id,
             layers: [{
-			        position: 1,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 2,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 3,
-			        filling: fillings[randomize(fillings)]._id
-		    }],
+                    position: 1,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 2,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 3,
+                    filling: fillings[randomize(fillings)]._id
+            }],
             reviews: reviews[randomize(reviews)]._id,
             quantity: quantities[randomize(quantities)]
         },
@@ -263,21 +263,21 @@ var seedCakes = function (shapes, icings, fillings, reviews, stores) {
             shape: shapes[randomize(shapes)]._id,
             icing: icings[randomize(icings)]._id,
             layers: [{
-			        position: 1,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 2,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 3,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 4,
-			        filling: fillings[randomize(fillings)]._id
-		    }],
+                    position: 1,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 2,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 3,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 4,
+                    filling: fillings[randomize(fillings)]._id
+            }],
             reviews: reviews[randomize(reviews)]._id,
             quantity: quantities[randomize(quantities)]
         },
@@ -289,17 +289,17 @@ var seedCakes = function (shapes, icings, fillings, reviews, stores) {
             shape: shapes[randomize(shapes)]._id,
             icing: icings[randomize(icings)]._id,
             layers: [{
-			        position: 1,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 2,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 3,
-			        filling: fillings[randomize(fillings)]._id
-		    }],
+                    position: 1,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 2,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 3,
+                    filling: fillings[randomize(fillings)]._id
+            }],
             reviews: reviews[randomize(reviews)]._id,
             quantity: quantities[randomize(quantities)]
         },
@@ -311,21 +311,21 @@ var seedCakes = function (shapes, icings, fillings, reviews, stores) {
             shape: shapes[randomize(shapes)]._id,
             icing: icings[randomize(icings)]._id,
             layers: [{
-			        position: 1,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 2,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 3,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 4,
-			        filling: fillings[randomize(fillings)]._id
-		    }],
+                    position: 1,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 2,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 3,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 4,
+                    filling: fillings[randomize(fillings)]._id
+            }],
             reviews: reviews[randomize(reviews)]._id,
             quantity: quantities[randomize(quantities)]
         },
@@ -337,17 +337,17 @@ var seedCakes = function (shapes, icings, fillings, reviews, stores) {
             shape: shapes[randomize(shapes)]._id,
             icing: icings[randomize(icings)]._id,
             layers: [{
-			        position: 1,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 2,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 3,
-			        filling: fillings[randomize(fillings)]._id
-		    }],
+                    position: 1,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 2,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 3,
+                    filling: fillings[randomize(fillings)]._id
+            }],
             reviews: reviews[randomize(reviews)]._id,
             quantity: quantities[randomize(quantities)]
         },
@@ -359,21 +359,21 @@ var seedCakes = function (shapes, icings, fillings, reviews, stores) {
             shape: shapes[randomize(shapes)]._id,
             icing: icings[randomize(icings)]._id,
             layers: [{
-			        position: 1,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 2,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 3,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 4,
-			        filling: fillings[randomize(fillings)]._id
-		    }],
+                    position: 1,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 2,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 3,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 4,
+                    filling: fillings[randomize(fillings)]._id
+            }],
             reviews: reviews[randomize(reviews)]._id,
             quantity: quantities[randomize(quantities)]
         },
@@ -385,17 +385,17 @@ var seedCakes = function (shapes, icings, fillings, reviews, stores) {
             shape: shapes[randomize(shapes)]._id,
             icing: icings[randomize(icings)]._id,
             layers: [{
-			        position: 1,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 2,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 3,
-			        filling: fillings[randomize(fillings)]._id
-		    }],
+                    position: 1,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 2,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 3,
+                    filling: fillings[randomize(fillings)]._id
+            }],
             reviews: reviews[randomize(reviews)]._id,
             quantity: quantities[randomize(quantities)]
         },
@@ -407,21 +407,21 @@ var seedCakes = function (shapes, icings, fillings, reviews, stores) {
             shape: shapes[randomize(shapes)]._id,
             icing: icings[randomize(icings)]._id,
             layers: [{
-			        position: 1,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 2,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 3,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 4,
-			        filling: fillings[randomize(fillings)]._id
-		    }],
+                    position: 1,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 2,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 3,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 4,
+                    filling: fillings[randomize(fillings)]._id
+            }],
             reviews: reviews[randomize(reviews)]._id,
             quantity: quantities[randomize(quantities)]
         },
@@ -433,17 +433,17 @@ var seedCakes = function (shapes, icings, fillings, reviews, stores) {
             shape: shapes[randomize(shapes)]._id,
             icing: icings[randomize(icings)]._id,
             layers: [{
-			        position: 1,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 2,
-			        filling: fillings[randomize(fillings)]._id
-			    },
-			    {
-			        position: 3,
-			        filling: fillings[randomize(fillings)]._id
-		    }],
+                    position: 1,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 2,
+                    filling: fillings[randomize(fillings)]._id
+                },
+                {
+                    position: 3,
+                    filling: fillings[randomize(fillings)]._id
+            }],
             reviews: reviews[randomize(reviews)]._id,
             quantity: quantities[randomize(quantities)]
         }
@@ -472,7 +472,7 @@ connectToDb.then(function () {
     }).then(function (users) {
         return seedStores(users);
     }).then(function () {
-    	return q.all([getShapesData(), getStoresData()]);
+        return q.all([getShapesData(), getStoresData()]);
     }).spread(function (shapes, stores) {
         if (shapes.length === 0) {
             return seedShapes(stores);
@@ -480,7 +480,7 @@ connectToDb.then(function () {
             console.log(chalk.magenta('Seems to already be shape data, exiting!'));
         }
     }).then(function () {
-    	return q.all([getFillingsData(), getStoresData()]);
+        return q.all([getFillingsData(), getStoresData()]);
     }).spread(function (filling, stores) {
         if (filling.length === 0) {
             return seedFilling(stores);
@@ -488,7 +488,7 @@ connectToDb.then(function () {
             console.log(chalk.magenta('Seems to already be filling data, exiting!'));
         }
     }).then(function () {
-    	return q.all([getIcingsData(), getStoresData()]);
+        return q.all([getIcingsData(), getStoresData()]);
     }).spread(function (icings, stores) {
         if (icings.length === 0) {
             return seedIcing(stores);
