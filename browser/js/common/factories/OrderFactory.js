@@ -1,9 +1,11 @@
-app.factory('OrderFactory', function ($http, StoreFCT, AuthService, $localStorage, CartFactory, CakeFactory) {
+app.factory('OrderFactory', function ($http, StoreFCT, AuthService, $rootScope, $localStorage, CartFactory, CakeFactory) {
 
    return {
        createNewOrder: function (store, cakes, total) {
            return $http.post('/api/order/', { store : store, cakes : cakes, total : total }, function (response) {
                 console.log('response', response);
+                $rootScope.numCartCakes = 0;
+
                 return response.data; 
            });
        },

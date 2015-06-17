@@ -45,7 +45,7 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, $localStorage, CartFactory, OrderFactory, getCartOfCakes, AuthService, isAuthenticated) {
+app.controller('CartCtrl', function ($scope, CakeFactory, $rootScope, $state, $stateParams, $localStorage, CartFactory, OrderFactory, getCartOfCakes, AuthService, isAuthenticated) {
 
     $scope.cart = getCartOfCakes;
 
@@ -81,6 +81,7 @@ app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, 
             // $state.go()
             })
     	}
+        
     	
     };
 

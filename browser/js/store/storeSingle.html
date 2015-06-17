@@ -1,7 +1,5 @@
 <h1>{{currentStore.name}}</h1>
 
-<h3>Custom Cakes</h3>
-<button ui-sref = "cake-builder.first({storeId: currentStore._id})">Build Your Cake</button>
 
 <div class="store-filters col-xs-2">
     <div>Stores</div>
@@ -9,6 +7,8 @@
     <button ng-click="setStore(store)" class="store-buttons btn" ng-repeat="store in stores track by $index">{{ store.name }}</button>
 </div>
 
+<h3>Custom Cakes</h3>
+<button ui-sref = "cake-builder.first({storeId: currentStore._id})">Build Your Cake</button>
 
 <div class="grid col-xs-10 pull-right">
     <figure ng-repeat="cake in currentProducts track by $index" ng-mouseover="showOverlay=true" ng-mouseout="showOverlay=false" class="pull-right caked-up" style="background: {{colorScheme[0]}}">
