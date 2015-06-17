@@ -8,11 +8,16 @@ app.factory('CakeFactory', function ($http, $localStorage, AuthService, $state, 
             });
         },
 
+        getAllStoreCakes: function (store) {
+            return $http.get('/api/cake/store/' + store._id).then(function(response){
+                return response.data;
+            });
+        },
+
     	getUserInfo: function (scope) {
             if (AuthService.isAuthenticated()) {
                 AuthService.getLoggedInUser().then(function (user) {
-                    console.log(user)
-                    scope.user = user
+                    scope.user = user;
                     return user;
                 })
             }
@@ -22,7 +27,6 @@ app.factory('CakeFactory', function ($http, $localStorage, AuthService, $state, 
 
     		if (cakeid) {
     			return $http.get('/api/cake/' + cakeid).then(function(response){
-	            	console.log('response.data', response.data);
 	                return response.data;
 	            });
     		}

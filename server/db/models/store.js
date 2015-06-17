@@ -27,7 +27,7 @@ var schema = new mongoose.Schema({
 	}],
 	colorScheme: {
 		type: [String],
-		default: ['#0266C8', '#F90101', '#F2B50F', '#00933B']
+		default: ['#F3A2C6', '#F90101', '#F2B50F', '#00933B']
 	}
 });
 

@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600">
-    <script src="/js/modernizr.custom.js"></script>
+    
 
     <script src="/lodash/index.js"></script>
     <script src="/angular/angular.js"></script>
@@ -27,6 +27,7 @@
     <script src="/ngstorage/ngStorage.min.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/main.js"></script>
+    <script src="/js/modernizr.custom.js"></script>
     
 
 </head>
@@ -59,7 +60,7 @@
             <div class="page page-right">
                 <div class="page-inner">
                     <section>
-                        <h2>RIGHT CONTENT</h2>
+                       <div ui-view></div>
                     </section>
                 </div><!-- /page-inner -->
             </div><!-- /page-right -->
@@ -70,13 +71,11 @@
                     </section>
                 </div><!-- /page-inner -->
             </div><!-- /page-left -->
-            <a href="#" class="back back-right" title="back to intro">&rarr;</a>
-            <a href="#" class="back back-left" title="back to intro">&larr;</a>
+            <a id="back_right" href="#" style="color: {{colorScheme[0]}}" class="back back-right" title="back to intro">&rarr;</a>
+            <a id="back_left" href="#" style="color: {{colorScheme[0]}}" class="back back-left" title="back to intro">&larr;</a>
         </div><!-- /splitlayout -->
     </div><!-- /container -->
 
-    <script src="/js/classie.js"></script>
-    <script src="/js/cbpSplitLayout.js"></script>
     <script>
             // For Demo purposes only (show hover effect on mobile devices)
             [].slice.call( document.querySelectorAll('a[href="#"') ).forEach( function(el) {
@@ -86,23 +85,41 @@
     <script type="text/ng-template" id="myModalContent.html">
 
         <div class="modal-header">
-            <h3 class="modal-title">Im a modal!</h3>
+            <h3 class="modal-title">{{cake.name}}</h3>
         </div>
     
         <div class="modal-body">
-            <ul>
-                <li ng-repeat="item in items">
-                    <a ng-click="selected.item = item">{{ item }}</a>
-                </li>
-            </ul>
-            Selected: <b>{{ selected.item }}</b>
+
+            <div class="row">
+                <div class="col col-xs-9">
+                    <div>
+                        <label>Name: </label> {{ cake.name }}
+                    </div>
+                    <div>
+                        <label>Description: </label> {{ cake.description }}
+                    </div>
+                    <div>
+                        <label>Type: </label> {{ cake.type }}
+                    </div>
+                    <div>
+                        <label>In Stock: </label> {{ cake.quantity }}
+                    </div>
+                    <div>
+                        <label>Price: </label> ${{ cake.price }}
+                    </div>
+                </div>
+            </div>
+
         </div>
     
         <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" ng-click="addToCart(cake)">Add to Cart</button>
+            <button class="btn btn-danger" ng-click="removeFromCart(cake)">Cancel</button>
         </div>
     </script>
+    <script src="/js/classie.js"></script>
+    <script src="/js/cbpSplitLayout.js" async></script>
+    
    
 </body>
 </html>

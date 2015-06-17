@@ -17,6 +17,15 @@ router.get('/:cakeid', function (req, res, next) {
 });
 
 
+router.get('/store/:storeId', function (req, res, next) {
+
+	Cake.find({ storeId : req.params.storeId }).exec().then(function (cakes) {
+		res.send(cakes);
+	});
+
+});
+
+
 
 router.get('/', function (req, res, next) {
     

@@ -4,9 +4,19 @@
         </div>
 
         <ul class="navbar-nav">
+
+
+            <!-- <li id="store-nav" class="store-test" ng-show="!item.adminAuth || isAdmin()">
+                <a style="color: {{ colorScheme[0] }}" class="hvr-underline-from-center" ui-sref="store">Store</a>
+            </li> -->
+
             <li id="{{$index}}nav" class="store-test" ng-repeat="item in items track by $index" ng-show="!item.adminAuth || isAdmin()">
                 <a style="color: {{ colorScheme[0] }}" class="hvr-underline-from-center" ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
             </li>
+
+            <!-- <li id="cake-nav" class="store-test" ng-show="!item.adminAuth || isAdmin()">
+                <a style="color: {{ colorScheme[0] }}" class="hvr-underline-from-center" ui-sref="customStores">Cake Builder</a>
+            </li> -->
 
             <li style="color: {{ colorScheme[0] }}"ng-show="!user" href="" ui-sref="login" class="hvr-underline-from-center pull-right login-button">Login</li>
 

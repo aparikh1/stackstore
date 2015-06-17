@@ -26,36 +26,17 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                 scope.numCartCakes = $rootScope.numCartCakes;
             });
 
-            scope.items = [
-                // { label: 'Home', state: 'home' },
-                // { label: 'About', state: 'about' },
-                { label: 'Admin', state: 'adminHome({storeId : user.storeId})', adminAuth: true },
-                { label: 'Store', state: 'storeViewProducts' },
-                // { label: 'Tutorial', state: 'tutorial' },
-                // { label: 'Members Only', state: 'membersOnly', auth: true },
-                { label: 'Cart', state: 'cart'}
-            ];
-
-            // AuthService.getLoggedInUser().then(function (user) {
-            //     // console.log('USER', user);
-            //     if(user === null){
-            //         scope.items.push({ label: 'Signup', state: 'signup' });
-            //     } else {
-            //         if(!user.storeId) {
-            //             scope.items.push({ label: 'Create A Store', state: 'storeCreate', auth: true });
 
             var calculateNavBar = function () {
                 AuthService.getLoggedInUser().then(function (user) {
                     scope.items = [
                         { label: 'Admin', state: 'adminHome({storeId : user.storeId})', adminAuth: true },
-                        { label: 'Store', state: 'store' },
-                        { label: 'Cart', state: 'cart'}
+                        { label: 'Store', state: 'store' }
                     ];
-                    // consolnode se.log('HERE');
+
                     if(user === null){
                         scope.items.push({ label: 'Signup', state: 'signup' });
                     } else {
-                        console.log('USER', user);
                         if(hasPendingReviews()) {
                             scope.items.push({ label: 'Review Products', state: 'reviewProduct', auth: true });
                         }
@@ -64,6 +45,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                         }
 
                     }
+
+                    scope.items.push({ label: 'Cake Builder', state: 'custom' });
+
                 });
             }
             calculateNavBar();
@@ -88,8 +72,8 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                 AuthService.getLoggedInUser().then(function (user) {
                     scope.user = user;
                     if(AuthService.isAdminAuthenticated()) {
-                        // console.log('sTORE ID', user.storeId);
                         $state.go('adminHome', {storeId : user.storeId});
+
                     }
                     else {
                         $state.go('store');

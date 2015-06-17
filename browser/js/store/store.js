@@ -4,7 +4,12 @@ app.config(function ($stateProvider) {
         url: '/store',
         templateUrl: 'js/store/store.html',
         controller: 'StoreCtrl',
+    });
 
+    $stateProvider.state('custom', {
+        url: '/custom',
+        templateUrl: 'js/store/store.html',
+        controller: 'StoreCtrl',
     });
 
     $stateProvider.state('storeViewProducts', {
@@ -27,20 +32,22 @@ app.config(function ($stateProvider) {
 
 app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService, $state, StoreFCT, StoreSingleFCT, $stateParams, $localStorage, CakeFactory, getColorScheme, $modal, $log) {
 
-    $scope.items = ['item1', 'item2', 'item3'];
+    $scope.currentStore = $localStorage.currentStore;
 
     $scope.animationsEnabled = true;
 
-    $scope.open = function (size) {
+    $scope.open = function (cake) {
 
         var modalInstance = $modal.open({
           animation: $scope.animationsEnabled,
           templateUrl: 'myModalContent.html',
           controller: 'ModalInstanceCtrl',
-          size: size,
           resolve: {
-            items: function () {
-                return $scope.items;
+            cake: function () {
+                return cake;
+            },
+            colorScheme: function () {
+                return $scope.colorScheme;
             }
           }
         });
@@ -62,8 +69,6 @@ app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService,
     CakeFactory.getAllCakes().then(function (allcakes) {
 
         $scope.products = allcakes;
-        console.log('products', $scope.products);
-        $scope.currentProducts = $scope.products;
         return allcakes;
 
     }).then(function (allcakes) {
@@ -75,13 +80,16 @@ app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService,
         $scope.stores = _.uniq(stores, 'name');
 
     });
+
+    CakeFactory.getAllStoreCakes($scope.currentStore).then(function (allcakes) {
+        $scope.currentProducts = allcakes;
+        return allcakes;
+    })
     
  
     $scope.addToCart = StoreSingleFCT.addToCart;
 
     $scope.removeFromCart = StoreSingleFCT.removeFromCart;
-
-    $scope.currentStore = $localStorage.currentStore;
 
     $scope.colorScheme = getColorScheme;
 
@@ -97,23 +105,26 @@ app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService,
 });
 
 
-app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, cake, colorScheme, StoreSingleFCT) {
 
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
+  $scope.cake = cake;
 
-  $scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
-  };
+  $scope.addToCart = StoreSingleFCT.addToCart;
+
+  $scope.removeFromCart = StoreSingleFCT.removeFromCart;
 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
 });
 
-app.controller('StoreCtrl', function ($rootScope, $scope, AuthService, $state, StoreFCT, $localStorage, CartFactory) {
+app.controller('StoreCtrl', function ($rootScope, $scope, AuthService, $state, StoreFCT, $localStorage, CartFactory, $location) {
+
+    $scope.location = $location.$$url;
+
+    if ($scope.location === '/custom') {
+        $scope.customStores = true;
+    }
 
     $localStorage.currentStore = undefined;
 
