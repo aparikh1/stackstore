@@ -6,6 +6,8 @@ var schema = new mongoose.Schema({
 
 	description: { type: String, max: 255 },
 
+	color: {type: String},
+
     price: { type: Number, required: true },
 
     storeId: {

@@ -22,7 +22,12 @@ body                            { padding-top:5px; }
 /* active buttons turn light green-blue*/
 #status-buttons a.active span   { background:#9A00BC; }
 
+canvas{
 
+	position: absolute;
+	z-index: -1;
+
+}
 
 #yourCake {
 
@@ -41,3 +46,102 @@ body                            { padding-top:5px; }
 	margin: 0 auto;
 
 }
+
+#cakeObjImg{
+
+	display: block;
+	padding: 10px;
+	max-width: 500px;
+	height: 500px;
+	border: 5px solid red;
+	margin: 0 auto;
+	background: black;
+
+	
+	#roundCake{
+
+		#bottom{
+
+			margin-top: 200px;
+
+		}
+		#middle{
+
+		  margin-top: 117px;
+		  // right: 123px;
+		  // left: 123px;
+		  position: absolute;
+		  z-index: 2;
+		}
+		#top{
+		  margin-top: 42px;
+		  // right: 144px;
+		  // left: 144px;
+		  position: absolute;
+		  z-index: 3;
+		}
+	}
+
+	#squareCake{
+		
+		margin-left: -2%;
+
+		#bottom{
+
+			margin-top: 200px;
+
+		}
+		#middle{
+
+		  margin-top: 144px;
+		  position: absolute;
+		  z-index: 2;
+		  height: 175px;
+		}
+		#top{
+		  margin-top: 98px;
+		  height: 153px;
+		  position: absolute;
+		  z-index: 3;
+		}
+
+	}
+	#recCake{
+		
+
+
+		#bottom{
+
+			margin-top: 258px;
+			filter: hue-rotate(180deg);
+
+		}
+		#middle{
+
+		  margin-top: 229px;
+		  position: absolute;
+		  z-index: 2;
+		}
+		#top{
+		  margin-top: 203px;
+		  position: absolute;
+		  z-index: 3;
+		}
+
+		#recLayOneColor{
+			position: absolute;
+			padding: 10px;
+			max-width: 500px;
+			height: 500px;
+			border: 10px solid green;
+			margin: 0 auto;
+			background: black;
+		}
+
+
+
+	}
+
+
+}
+

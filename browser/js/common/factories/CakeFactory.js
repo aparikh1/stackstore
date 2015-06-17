@@ -165,6 +165,10 @@ app.factory('CakeFactory', function ($http, $localStorage, AuthService, $state, 
                         
                     }
 
+                    scope.colors = [{color: null},{color: null},{color: null}]
+
+
+
                     //for selecting the property to update w update function
                     scope.selectedNumLayers = "selectedNumLayers"
                     scope.numLayers = [1,2,3]
