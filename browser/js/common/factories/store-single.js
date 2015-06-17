@@ -1,7 +1,7 @@
 app.factory('StoreSingleFCT', function ($http, $state, $rootScope, AuthService, StoreFCT, $localStorage, CartFactory) {
 
     var getAll = function(storeId) {
-        return $http.get(`/api/store/${storeId}`, function (data) {
+        return $http.get('/api/store/' + storeId, function (data) {
             return data;
         });
     };
@@ -16,6 +16,7 @@ app.factory('StoreSingleFCT', function ($http, $state, $rootScope, AuthService, 
                 });
                 
                 StoreFCT.addToAuthCart(user, cake, CartFactory);
+                $rootScope.$broadcast( "numCartCakes", $localStorage.cart.length );
             });
         } else {
             var cartData = [];

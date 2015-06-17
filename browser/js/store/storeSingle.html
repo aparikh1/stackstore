@@ -6,12 +6,12 @@
 <div class="store-filters col-xs-2">
     <div>Stores</div>
 <!--     {{ currentStore._id }} -->
-    <button class="store-buttons btn" ng-repeat="store in stores | storeName:products">{{ store }}</button>
+    <button ng-click="setStore(store)" class="store-buttons btn" ng-repeat="store in stores track by $index">{{ store.name }}</button>
 </div>
 
 
 <div class="grid col-xs-10 pull-right">
-    <figure ng-repeat="cake in products track by $index" ng-mouseover="showOverlay=true" ng-mouseout="showOverlay=false" class="pull-right caked-up" style="background: {{colorScheme[0]}}">
+    <figure ng-repeat="cake in currentProducts track by $index" ng-mouseover="showOverlay=true" ng-mouseout="showOverlay=false" class="pull-right caked-up" style="background: {{colorScheme[0]}}">
         <img src="./images/placeholders/3.png" alt="img31"/>
         <figcaption>
             <h3>{{ cake.name }}<span></span></h3>

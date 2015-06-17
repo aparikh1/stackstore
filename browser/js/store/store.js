@@ -61,15 +61,16 @@ app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService,
 
         $scope.products = allcakes;
         console.log('products', $scope.products);
+        $scope.currentProducts = $scope.products;
         return allcakes;
 
     }).then(function (allcakes) {
 
         allcakes.forEach(function (cake) {
-            stores.push(cake.storeId.name);
+            stores.push(cake.storeId);
         });
 
-        $scope.stores = _.uniq(stores);
+        $scope.stores = _.uniq(stores, 'name');
 
     });
     
@@ -81,6 +82,21 @@ app.controller('StoreSingleCtrl', function ($rootScope, $scope, $q, AuthService,
     $scope.currentStore = $localStorage.currentStore;
 
     $scope.colorScheme = getColorScheme;
+
+    $scope.setStore = function (store) {
+        console.log('store', store);
+        console.log('sdfsdtest');
+
+        console.log('Products', $scope.products);
+
+        $scope.currentProducts = _.filter($scope.products, function (ele) {
+            console.log('elem', ele);
+            return ele.storeId._id === store._id;
+        });
+
+        console.log('currentProducts', $scope.currentProducts);
+
+    }
 
 
 });
