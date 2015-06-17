@@ -17,6 +17,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                     if(user === null){
                         scope.items.push({ label: 'Signup', state: 'signup' });
                     } else {
+                        console.log('USER', user);
                         if(hasPendingReviews()) {
                             scope.items.push({ label: 'Review Products', state: 'reviewProduct', auth: true });
                         }

@@ -18,7 +18,8 @@ app.controller('SignUpCtrl', function ($scope, AuthService, $state, $localStorag
         $scope.error = null;
         
         AuthService.signup(signupInfo).then(function (user) {
-            CartFactory.createNewCart($localStorage.cart, user);
+            if($localStorage.cart === undefined) $localStorage.cart = []
+                return CartFactory.createNewCart($localStorage.cart, user)
         }).then(function () {
             $localStorage.cart = [];
             $state.go('home');

@@ -9,9 +9,11 @@ var Promise = require('bluebird');
 var Order = mongoose.model('Order');
 var ReviewModel = mongoose.model('Review');
 var CakeModel = mongoose.model('Cake');
+var Cart = mongoose.model('Cart');
 
 
 router.post('/', function (req, res, next) {
+
 
 	var newOrder = new Order({
 		customer: req.user._id,
@@ -22,7 +24,12 @@ router.post('/', function (req, res, next) {
 
 	newOrder.save(function (err) {
 		if (err) return next(err);
-		res.send("doneski")
+		Cart.findOne({ userId: req.user.userId }).exec().then(function(cart){
+			cart.remove().then(function(){
+				res.send("cart deleted after checkout")
+			})
+		})
 	})
+
 
 });
