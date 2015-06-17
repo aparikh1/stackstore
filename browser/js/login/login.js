@@ -12,6 +12,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, $localStorage
 
     $scope.login = {};
     $scope.error = null;
+    $scope.checkingOut = $localStorage.checkingOut
 
     $scope.sendLogin = function (loginInfo) {
         $scope.error = null;
