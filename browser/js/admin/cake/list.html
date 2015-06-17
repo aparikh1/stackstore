@@ -3,9 +3,7 @@
 <h1>Stock Cake List</h1>
 
 <div ng-repeat="cake in cakeList">
-    {{cake | json}}
 	<h1>{{cake.name }} <span>- {{cake.price | currency}}</span></h1>
-	<img src="{{cake.image}}" style="float:left;">
     <h5>Shape: {{ cake.shape._id }}</h5>
     <h5>Type: {{ cake.type }}</h5>
     <h5>Quantity: {{ cake.quantity }}</h5>

@@ -18,6 +18,7 @@ navbar {
 
   .nav > li > a {
     cursor: pointer;
+    text-shadow: 2px 2px #000;
     &.active {
       color: #f30046;
     }

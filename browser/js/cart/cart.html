@@ -1,24 +1,24 @@
 <h1>CART</h1>
 
 <div ng-repeat="c in cart">
-	Name: {{ c.name }} </br>
-	Type: {{ c.type }} </br>
-	Shape: {{ c.shape }} </br>
-	Icing: {{ c.icing }} </br>
-	Quantity Ordered: {{c.numOrdered}} </br>
-	Price: ${{ c.price }} </br><br/>
+	<b>Name:</b> {{ c.name }} </br>
+	<b>Layers:</b> {{c.layerNum}} <br/>
+	<b>Shape:</b> {{ c.shape.name }} </br>
+	<b>Icing:</b> {{ c.icing.name }} </br>
+	<b>Quantity Ordered:</b> {{c.numOrdered}} </br>
+	<b>Price:</b> ${{ c.price }} </br><br/>
+	<button ng-click="removeCake(c)">Remove From Cart</button>
+	<hr>
 </div>
 
 <h2 ng-show = "cart.length === 0 || currentStore === undefined">Your Cart is Empty.  We recommend the cake!</h2><br>
 
+<hr>
 
-TOTAL: ${{ price }}
+<h2>TOTAL: ${{ price }}</h2>
 
 <button ng-show = "currentStore !== undefined" ui-sref="storeViewProducts({storeId: currentStore._id})">Continue Shopping</button>
 <button ng-show = "currentStore === undefined" ui-sref="store">Continue Shopping</button>  
 <button ng-click="">Edit Cart</button>
 <button ng-click="checkout(cart)">Checkout</button>
 <button ng-click="calculateOrders(cart)">Calculate</button>
-
-
-<pre>{{ localCart | json : 4 }}</pre> 

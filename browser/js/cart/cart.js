@@ -47,7 +47,15 @@ app.config(function ($stateProvider) {
 
 app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, $localStorage, CartFactory, OrderFactory, getCartOfCakes, AuthService, isAuthenticated) {
 
-    $scope.cart = getCartOfCakes;
+    $scope.cart = getCartOfCakes.map(function (cake) {
+        console.log('CAKE', cake);
+        var layNum = 0;
+        for(var i = 0; i < 3; i++) {
+            if(cake.layers[i].filling !== null) layNum++
+        }
+        cake.layerNum = layNum;
+        return cake;
+    });
     $scope.localCart = $localStorage.cart
     console.log('scope.cart', $scope.cart);
     $scope.price = CartFactory.calculateCart($scope.cart);
@@ -68,6 +76,19 @@ app.controller('CartCtrl', function ($scope, CakeFactory, $state, $stateParams, 
             });
     	}
     };
+
+    $scope.removeCake = function (cake) {
+        CartFactory.deleteFromCart(cake).then(function (data) {
+            // $state.go('cart');
+            $scope.cart = $scope.cart.filter(function (theCake) {
+                console.log('THECAKE', theCake);
+                if(cake._id !== theCake._id) return true;
+            });
+            console.log('scope.cart', $scope.cart);
+            $scope.$digest();
+        });
+
+    }
 
     var calculateOrders = function (cakeArray) {
         var retArr = [];

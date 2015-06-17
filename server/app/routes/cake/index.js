@@ -9,11 +9,13 @@ var Cake = mongoose.model('Cake');
 
 router.get('/:cakeid', function (req, res, next) {
 
-	Cake.findById(req.params.cakeid, function (err, cake) {
-		if(err) return next(err);
+	Cake.findById(req.params.cakeid)
+        .populate('shape icing layers')
+        .populate('storeId')
+        .deepPopulate('layers.filling').exec().then(function (cake) {
+		// if(err) return next(err);
 		res.send(cake);
 	});
-
 });
 
 
