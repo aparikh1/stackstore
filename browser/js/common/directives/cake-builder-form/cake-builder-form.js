@@ -48,6 +48,7 @@ app.directive('buildForm', function (CakeFactory, $rootScope, $localStorage, $st
                             scope.cake[propName] = propObj._id
                             
                             scope.currentPrices[propName] = propObj
+                            console.log("scope.currentPrices",scope.currentPrices)
                             
                         }
 
