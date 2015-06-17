@@ -20,10 +20,10 @@
     </div>
     <!-- <button type="submit" class="btn btn-default">Submit</button> -->
     <!-- <submit-user-button></submit-user-button> -->
-<!--     <button type="submit" class="btn btn-default" ng-show="cart.length !== 0 || checkingOut" ng-click="checkingOut = true">Submit & Checkout (cart full)</button>
-    <button type="submit" class="btn btn-default" ng-show="cart.length !== 0 || checkingOut" >Submit & Continue Shopping (cart full)</button>
-    <button type="submit" class="btn btn-default" ng-hide= "cart.length !== 0 || checkingOut">Submit</button> -->
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-default" ng-show=" checkingOut" ng-click="checkingOut = true">Submit & Checkout (cart full)</button>
+    <button type="submit" class="btn btn-default" ng-show="checkingOut" >Submit & Continue Shopping (cart full)</button>
+    <button type="submit" class="btn btn-default" ng-hide= "checkingOut">Submit</button>
+    <!-- <button type="submit" class="btn btn-default">Submit</button> -->
 
     <button type="submit" class="btn btn-default" ui-sref = "login">Have a username?  Click to login.</button>
 </form>

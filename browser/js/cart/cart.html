@@ -17,7 +17,7 @@ TOTAL: ${{ price }}
 <button ng-show = "currentStore !== undefined" ui-sref="storeViewProducts({storeId: currentStore._id})">Continue Shopping</button>
 <button ng-show = "currentStore === undefined" ui-sref="store">Continue Shopping</button>  
 <button ng-click="">Edit Cart</button>
-<button ng-click="checkout(cart)">Checkout</button>
+<button ng-click="checkout(cart)" ng-click="checkingOut = true">Checkout</button>
 <button ng-click="calculateOrders(cart)">Calculate</button>
 
 
